@@ -51,7 +51,7 @@
             height: 70px;
             margin-bottom: -70px; 
             
-            /* Đã giảm độ đục thêm 40% (từ 0.85 xuống 0.45) */
+            /* Nền Header */
             background: rgba(255, 255, 255, 0.45); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -118,7 +118,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000; /* Nằm trên cùng */
+            z-index: 1000;
         }
 
         .hamburger-icon svg {
@@ -146,28 +146,28 @@
             visibility: visible;
         }
 
-        /* Khung Menu trượt */
+        /* Khung Menu trượt - CHỈNH SỬA NỀN GRADIENT Ở ĐÂY */
         .slide-menu-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            max-width: 450px; /* Độ rộng tối đa của menu trên màn hình lớn */
+            max-width: 450px; 
             height: 100vh;
             z-index: 1000;
             
-            /* Hiệu ứng nền mờ nhạt dần về bên phải như ảnh 1 */
-            background: linear-gradient(to right, rgba(250,250,250,0.98) 0%, rgba(250,250,250,0.85) 60%, rgba(250,250,250,0) 100%);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            /* Gradient từ màu Header (0.45) sang hoàn toàn trong suốt (0) ở cạnh phải */
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             
-            transform: translateX(-100%); /* Ẩn sang trái */
+            transform: translateX(-100%);
             transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-            overflow: hidden; /* Cắt phần trượt thừa */
+            overflow: hidden; 
         }
 
         .slide-menu-container.active {
-            transform: translateX(0); /* Hiện ra */
+            transform: translateX(0); 
         }
 
         /* Nút Đóng (X) chung cho các menu */
@@ -191,12 +191,12 @@
             stroke-width: 1;
         }
 
-        /* Khung chứa các lớp Menu (Để tạo hiệu ứng trượt trái phải) */
+        /* Khung chứa các lớp Menu (Để tạo hiệu ứng trượt trái phải cho chữ) */
         .menu-slider {
             display: flex;
-            width: 200%; /* Chứa 2 khung menu: Main và Sub */
+            width: 200%; /* Chứa 2 bảng menu: Main và Sub */
             height: 100%;
-            padding-top: 80px; /* Tránh nút X */
+            padding-top: 80px; 
             transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
@@ -213,7 +213,7 @@
             display: flex;
             flex-direction: column;
             gap: 25px;
-            overflow-y: auto; /* Cho phép cuộn nếu menu quá dài */
+            overflow-y: auto; 
         }
 
         /* Styling các thẻ liên kết trong Menu */
@@ -249,13 +249,18 @@
             font-size: 18px;
             font-weight: 400;
             color: #000;
-            text-transform: none; /* Giữ chữ hoa chữ thường như ảnh 2 */
+            text-transform: none; 
             margin-bottom: 20px;
             cursor: pointer;
             background: rgba(0,0,0,0.03);
             padding: 15px;
             border-radius: 8px;
             margin-top: -10px;
+            transition: background 0.2s;
+        }
+
+        .sub-menu-header:hover {
+            background: rgba(0,0,0,0.06);
         }
 
         .sub-menu-header svg {
@@ -445,10 +450,9 @@
             
             .header-logo-img { height: 24px; }
             
-            /* Tùy chỉnh Menu trượt cho Mobile */
+            /* Đã bỏ dòng background đặc ở điện thoại để giữ hiệu ứng Gradient mượt */
             .slide-menu-container {
-                max-width: 85%; /* Menu chiếm 85% màn hình trên điện thoại */
-                background: rgba(250,250,250,0.98); /* Bỏ gradient trên đt cho rõ nét */
+                max-width: 85%; 
             }
 
             .video-container { height: 60vh; min-height: 50vh; }
@@ -482,26 +486,23 @@
 
     <!-- KHU VỰC MENU TRƯỢT (OFF-CANVAS) -->
     
-    <!-- Lớp phủ tối mờ phía sau menu -->
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <!-- Khung chứa Menu Trượt -->
+    <!-- Khung chứa Menu Trượt với nền Gradient trong suốt -->
     <div class="slide-menu-container" id="slideMenu">
         
-        <!-- Nút Đóng X (Hiển thị chung) -->
         <div class="close-menu-btn" id="closeMenuBtn">
             <svg viewBox="0 0 24 24" fill="none">
                 <path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
 
-        <!-- Khung chứa cơ chế trượt đa tầng -->
+        <!-- Khung Slider chữ trượt qua lại trên nền Gradient tĩnh -->
         <div class="menu-slider">
             
             <!-- PANEL 1: MENU CHÍNH -->
             <div class="menu-panel" id="mainMenuPanel">
                 <a href="#">HOME</a>
-                <!-- Nút chuyển sang bảng Shop -->
                 <a href="#" id="openShopMenuBtn">
                     SHOP
                     <svg viewBox="0 0 24 24" fill="none">
@@ -537,10 +538,9 @@
     </div>
 
 
-    <!-- Khu vực Header Mới Đồng bộ Mọi Thiết Bị -->
+    <!-- Khu vực Header Mới -->
     <header>
         
-        <!-- Bên Trái: Nút 3 sọc kích hoạt Menu -->
         <div class="nav-left">
             <div class="hamburger-icon" id="openMenuBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -551,14 +551,12 @@
             </div>
         </div>
 
-        <!-- Giữa: Ảnh Logo -->
         <div class="nav-center">
             <a href="index.html" style="display:flex; align-items:center;">
                 <img src="logo.png" alt="DSA" class="header-logo-img">
             </a>
         </div>
 
-        <!-- Bên Phải: Giỏ Hàng -->
         <div class="nav-right">
             <a href="#" class="cart-link">
                 <svg class="cart-icon" viewBox="0 0 24 24">
@@ -642,7 +640,7 @@
         </div>
     </footer>
 
- <!-- SCRIPT ĐIỀU KHIỂN LOGIC MENU TRƯỢT MƯỢT MÀ -->
+    <!-- SCRIPT ĐIỀU KHIỂN LOGIC MENU TRƯỢT MƯỢT MÀ -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const openMenuBtn = document.getElementById('openMenuBtn');
@@ -653,35 +651,29 @@
             const openShopMenuBtn = document.getElementById('openShopMenuBtn');
             const backToMainMenuBtn = document.getElementById('backToMainMenuBtn');
 
-            // Hàm mở Menu Tổng (Trượt từ ngoài vào)
             function openMenu() {
                 menuOverlay.classList.add('active');
                 slideMenu.classList.add('active');
             }
 
-            // Hàm đóng hoàn toàn Menu
             function closeMenu() {
                 menuOverlay.classList.remove('active');
                 slideMenu.classList.remove('active');
                 
-                // Sau khi menu đã trượt đóng xong (0.4s), tự động reset về lớp Main Menu
                 setTimeout(() => {
                     slideMenu.classList.remove('show-sub');
                 }, 400);
             }
 
-            // Gắn sự kiện Mở / Đóng Menu
             openMenuBtn.addEventListener('click', openMenu);
             closeMenuBtn.addEventListener('click', closeMenu);
-            menuOverlay.addEventListener('click', closeMenu); // Bấm ra ngoài nền mờ cũng đóng menu
+            menuOverlay.addEventListener('click', closeMenu); 
 
-            // Sự kiện nhấp vào nút "SHOP" -> Trượt sang menu con
             openShopMenuBtn.addEventListener('click', function(e) {
-                e.preventDefault(); // Ngăn trình duyệt nhảy trang
+                e.preventDefault(); 
                 slideMenu.classList.add('show-sub');
             });
 
-            // Sự kiện nhấp vào "<- Shop" -> Trượt lùi lại menu chính
             backToMainMenuBtn.addEventListener('click', function() {
                 slideMenu.classList.remove('show-sub');
             });
