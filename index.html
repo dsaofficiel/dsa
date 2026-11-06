@@ -43,14 +43,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 40px; /* Dàn thành 1 line ngang dính viền */
+            padding: 0 40px; 
             position: sticky;
             width: 100%;
             top: 0;
             z-index: 999;
+            height: 70px;
             margin-bottom: -70px; 
-            
-            /* Hiệu ứng nhòe màu sáng như hình 2 */
             background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -59,99 +58,90 @@
             transition: all 0.3s ease;
         }
 
+        /* Chia header thành 3 cột bằng nhau để Logo luôn ở chính giữa */
         .nav-left, .nav-center, .nav-right {
             display: flex;
             align-items: center;
-            height: 70px;
+            flex: 1; 
+            height: 100%;
         }
 
-        /* Căn đều 3 khu vực Header */
-        .nav-left { flex: 1; gap: 30px; }
-        .nav-center { flex: 1; justify-content: center; }
-        .nav-right { flex: 1; justify-content: flex-end; }
+        .nav-left { justify-content: flex-start; }
+        .nav-center { justify-content: center; }
+        .nav-right { justify-content: flex-end; }
 
-        /* Khung chứa ảnh Logo Header */
         .header-logo-img {
             height: 30px;
             width: auto;
             display: block;
-            filter: invert(1); /* Tự động đổi ảnh logo trắng sang màu đen để nổi trên nền sáng */
+            filter: invert(1); 
         }
 
-        /* --- CSS CHO MENU BÊN TRÁI VÀ BẢNG DROPDOWN --- */
-        .menu-item {
-            position: relative;
-            height: 100%;
+        /* --- MENU 3 SỌC (HAMBURGER) VÀ BẢNG TRƯỢT --- */
+        .hamburger-icon {
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
+            justify-content: center;
         }
 
-        /* Icon mũi tên */
-        .menu-item svg {
-            width: 12px;
-            height: 12px;
-            margin-left: 5px;
-            transition: transform 0.3s ease;
+        .hamburger-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #000;
         }
 
-        .menu-item:hover svg {
-            transform: rotate(180deg);
-        }
-
-        /* Bảng thả xuống kéo dài từ Header */
-        .dropdown-content {
+        .mobile-nav-panel {
             position: absolute;
-            top: 70px; /* Bắt đầu ngay dưới viền header */
-            left: -15px;
+            top: 70px; /* Nằm ngay dưới viền header */
+            left: 0;
+            width: 250px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            min-width: 180px;
-            padding: 15px 20px;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            border-top: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 5px 10px 20px rgba(0,0,0,0.05);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            
+            /* Hiệu ứng trượt từ trái sang */
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
 
-        .menu-item:hover .dropdown-content {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+        /* Class để kích hoạt mở menu (điều khiển bằng Javascript) */
+        .mobile-nav-panel.active {
+            transform: translateX(0);
         }
 
-        .dropdown-content a {
-            color: #333;
-            font-size: 13px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .dropdown-content a:hover {
+        .mobile-nav-panel a {
+            padding: 20px 30px;
             color: #000;
-            font-weight: 800;
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: background 0.2s;
         }
 
-        /* --- CSS CHO GIỎ HÀNG --- */
-        .cart-wrapper {
+        .mobile-nav-panel a:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        /* --- GIỎ HÀNG CHUẨN NÚT CLICK --- */
+        .cart-link {
             position: relative;
             display: flex;
             align-items: center;
             cursor: pointer;
+            color: #000;
         }
 
         .cart-icon {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             fill: #000;
         }
 
@@ -159,7 +149,7 @@
             position: absolute;
             top: -6px;
             right: -8px;
-            background: #e60000; /* Màu đỏ nổi bật cho số lượng sản phẩm */
+            background: #e60000;
             color: #fff;
             font-size: 10px;
             font-weight: 800;
@@ -170,7 +160,6 @@
             align-items: center;
             justify-content: center;
         }
-
 
         /* --- VIDEO LỚN --- */
         .video-container {
@@ -333,15 +322,20 @@
             font-size: 14px;
         }
 
-        /* --- GIAO DIỆN ĐIỆN THOẠI (MOBILE RESPONSIVE) --- */
+        /* --- GIAO DIỆN ĐIỆN THOẠI ĐỒNG BỘ --- */
         @media (max-width: 768px) {
-            header { padding: 0 20px; height: 60px; margin-bottom: -60px; }
-            .nav-left, .nav-center, .nav-right { height: 60px; }
+            header { 
+                padding: 0 20px; 
+                height: 60px; 
+                margin-bottom: -60px; 
+            }
             
-            /* Tạm ẩn menu trái trên điện thoại để tiết kiệm diện tích */
-            .nav-left { display: none; }
+            /* Tùy chỉnh vị trí bảng trượt khớp với header điện thoại */
+            .mobile-nav-panel { top: 60px; }
             
-            .nav-center { justify-content: flex-start; }
+            /* Giữ nguyên cấu trúc 3 cột để Logo không bị lệch */
+            .nav-left, .nav-center, .nav-right { display: flex; }
+            
             .header-logo-img { height: 24px; }
 
             .video-container { height: 60vh; min-height: 50vh; }
@@ -373,39 +367,24 @@
 </head>
 <body>
 
-    <!-- Khu vực Header Mới 1 Line -->
+    <!-- Khu vực Header Mới Đồng bộ Mọi Thiết Bị -->
     <header>
         
-        <!-- Bên Trái: Menu 3 sọc có Dropdown -->
+        <!-- Bên Trái: Menu 3 sọc -->
         <div class="nav-left">
-            <div class="menu-item">
-                Menu 1
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                <div class="dropdown-content">
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                </div>
+            <div class="hamburger-icon" id="menuToggleBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
             </div>
             
-            <div class="menu-item">
-                Menu 2
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                <div class="dropdown-content">
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                </div>
-            </div>
-            
-            <div class="menu-item">
-                Menu 3
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                <div class="dropdown-content">
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                </div>
+            <!-- Bảng thả xuống chứa 1 2 3 -->
+            <div class="mobile-nav-panel" id="sideNavPanel">
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
             </div>
         </div>
 
@@ -416,16 +395,16 @@
             </a>
         </div>
 
-        <!-- Bên Phải: Giỏ Hàng -->
+        <!-- Bên Phải: Giỏ Hàng (Clickable Link) -->
         <div class="nav-right">
-            <div class="cart-wrapper">
-                <!-- Icon Giỏ Hàng Vector -->
+            <!-- Thẻ <a> bọc toàn bộ icon để có thể nhấp vào chuyển trang giỏ hàng -->
+            <a href="#" class="cart-link">
                 <svg class="cart-icon" viewBox="0 0 24 24">
                     <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
                 </svg>
-                <!-- Số lượng (Tự động nhảy) -->
-                <span class="cart-badge">3</span>
-            </div>
+                <!-- Số lượng mặc định là 0 -->
+                <span class="cart-badge">0</span>
+            </a>
         </div>
         
     </header>
@@ -504,6 +483,27 @@
             COPY RIGHT © 2026 <span class="dsa-font">DSA</span>
         </div>
     </footer>
+
+    <!-- Đoạn Javascript điều khiển nhấp mở Menu 3 sọc -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggleBtn = document.getElementById('menuToggleBtn');
+            const sideNavPanel = document.getElementById('sideNavPanel');
+
+            // Khi nhấp vào nút 3 sọc thì mở/đóng bảng menu
+            menuToggleBtn.addEventListener('click', function(event) {
+                event.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
+                sideNavPanel.classList.toggle('active');
+            });
+
+            // Khi nhấp ra khoảng trắng bên ngoài thì tự động đóng menu lại
+            document.addEventListener('click', function(event) {
+                if (!sideNavPanel.contains(event.target) && !menuToggleBtn.contains(event.target)) {
+                    sideNavPanel.classList.remove('active');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
