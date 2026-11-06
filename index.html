@@ -5,15 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA | STREETWEAR BRAND</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-        /* Khai báo Font Rushblade Demo cho dòng Copyright */
-        @font-face {
-            font-family: 'Rushblade Demo';
-            src: url('Rushblade-Demo.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
+        /* Chỉ giữ lại Font Inter với các độ dày mỏng/vừa (Light/Regular) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
         * {
             box-sizing: border-box;
@@ -51,12 +44,12 @@
             height: 70px;
             margin-bottom: -70px; 
             
-            /* Nền Header */
-            background: rgba(255, 255, 255, 0.45); 
+            /* Tăng độ đục từ 0.45 lên 0.55 */
+            background: rgba(255, 255, 255, 0.55); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            color: #000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Viền sáng hơn */
+            color: #fff; /* Chuyển màu chữ mặc định sang trắng */
             transition: all 0.3s ease;
         }
 
@@ -75,7 +68,7 @@
             height: 30px;
             width: auto;
             display: block;
-            filter: invert(1); 
+            /* Giữ logo gốc (không dùng invert để nó có thể là màu trắng/sáng) */
         }
 
         /* --- GIỎ HÀNG BÊN PHẢI --- */
@@ -84,13 +77,13 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            color: #000;
+            color: #fff;
         }
 
         .cart-icon {
             width: 24px;
             height: 24px;
-            fill: #000;
+            fill: #fff; /* Đổi icon giỏ hàng sang màu trắng */
         }
 
         .cart-badge {
@@ -100,7 +93,7 @@
             background: #e60000;
             color: #fff;
             font-size: 10px;
-            font-weight: 800;
+            font-weight: 600; /* Dùng font mỏng hơn */
             width: 16px;
             height: 16px;
             border-radius: 50%;
@@ -124,7 +117,7 @@
         .hamburger-icon svg {
             width: 100%;
             height: 100%;
-            stroke: #000;
+            stroke: #fff; /* Đổi icon 3 sọc sang màu trắng */
         }
 
         /* Nền phủ toàn màn hình (Overlay) */
@@ -134,7 +127,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6); /* Nền overlay tối hơn một chút */
             z-index: 999;
             opacity: 0;
             visibility: hidden;
@@ -146,7 +139,7 @@
             visibility: visible;
         }
 
-        /* Khung Menu trượt - CHỈNH SỬA NỀN GRADIENT Ở ĐÂY */
+        /* Khung Menu trượt */
         .slide-menu-container {
             position: fixed;
             top: 0;
@@ -156,8 +149,8 @@
             height: 100vh;
             z-index: 1000;
             
-            /* Gradient từ màu Header (0.45) sang hoàn toàn trong suốt (0) ở cạnh phải */
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%);
+            /* Gradient với độ đục tăng lên 0.55 ở viền trái */
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             
@@ -187,7 +180,7 @@
         .close-menu-btn svg {
             width: 24px;
             height: 24px;
-            stroke: #333;
+            stroke: #fff; /* Nút X màu trắng */
             stroke-width: 1;
         }
 
@@ -216,30 +209,30 @@
             overflow-y: auto; 
         }
 
-        /* Styling các thẻ liên kết trong Menu */
+        /* Styling các thẻ liên kết trong Menu - CHỮ MÀU TRẮNG & MỎNG */
         .menu-panel a {
             font-size: 15px;
-            font-weight: 400;
-            color: #333;
+            font-weight: 300; /* Chữ mỏng (thin) */
+            color: #fff; /* Chữ màu trắng */
             letter-spacing: 1px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            transition: color 0.2s;
+            transition: color 0.2s, font-weight 0.2s;
         }
 
         .menu-panel a:hover {
-            color: #000;
-            font-weight: 600;
+            color: #ddd; /* Hover màu xám nhạt */
+            font-weight: 400;
         }
 
-        /* Nút Shop có mũi tên chỉ sang phải */
+        /* Mũi tên chỉ sang phải */
         .menu-panel a svg {
             width: 18px;
             height: 18px;
-            stroke: #333;
-            stroke-width: 1.5;
+            stroke: #fff; /* Mũi tên màu trắng */
+            stroke-width: 1; /* Nét mỏng */
         }
 
         /* Khung tiêu đề Menu Phụ (Quay lại) */
@@ -247,12 +240,12 @@
             display: flex;
             align-items: center;
             font-size: 18px;
-            font-weight: 400;
-            color: #000;
+            font-weight: 300; /* Chữ mỏng */
+            color: #fff; /* Chữ màu trắng */
             text-transform: none; 
             margin-bottom: 20px;
             cursor: pointer;
-            background: rgba(0,0,0,0.03);
+            background: rgba(255,255,255,0.05); /* Nền nút mờ nhạt */
             padding: 15px;
             border-radius: 8px;
             margin-top: -10px;
@@ -260,14 +253,14 @@
         }
 
         .sub-menu-header:hover {
-            background: rgba(0,0,0,0.06);
+            background: rgba(255,255,255,0.1);
         }
 
         .sub-menu-header svg {
             width: 20px;
             height: 20px;
-            stroke: #000;
-            stroke-width: 1.5;
+            stroke: #fff; /* Icon quay lại màu trắng */
+            stroke-width: 1; /* Nét mỏng */
             margin-right: 15px;
         }
 
@@ -275,7 +268,7 @@
         .menu-divider {
             width: 60%;
             height: 1px;
-            background-color: #333;
+            background-color: rgba(255,255,255,0.2); /* Đường gạch màu trắng mờ */
             margin-top: 30px;
         }
 
@@ -305,14 +298,14 @@
         }
 
         .btn-explore {
-            background: rgba(40,40,40,0.8);
+            background: rgba(255,255,255,0.1); /* Nền nhạt hơn */
             backdrop-filter: blur(5px);
             border-radius: 30px;
             padding: 12px 30px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 500;
             color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
             position: relative;
             z-index: 2;
         }
@@ -342,7 +335,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
+            color: #555;
             font-size: 12px;
         }
 
@@ -353,20 +346,21 @@
             background: #fff;
             color: #000;
             font-size: 10px;
-            font-weight: 800;
+            font-weight: 600;
             padding: 4px 8px;
             z-index: 5;
         }
 
         .product-info h3 {
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 500; /* Font mỏng hơn */
             margin-bottom: 5px;
         }
 
         .product-info .price {
             font-size: 14px;
             color: #aaa;
+            font-weight: 300;
             margin-bottom: 15px;
         }
 
@@ -380,7 +374,7 @@
             border: 1px solid #333;
             padding: 5px 8px;
             font-size: 10px;
-            color: #666;
+            color: #888;
         }
 
         /* --- FOOTER --- */
@@ -418,7 +412,7 @@
         .footer-socials a {
             font-family: 'Inter', sans-serif;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 500; /* Font vừa (không quá đậm) */
             letter-spacing: 2px;
             transition: color 0.3s ease;
         }
@@ -429,15 +423,10 @@
 
         .footer-copyright {
             font-size: 12px;
-            font-weight: 500;
-            color: #666;
+            font-weight: 300;
+            color: #888;
             letter-spacing: 1px;
             text-transform: uppercase;
-        }
-        
-        .dsa-font {
-            font-family: 'Rushblade Demo', sans-serif;
-            font-size: 14px;
         }
 
         /* --- GIAO DIỆN ĐIỆN THOẠI ĐỒNG BỘ --- */
@@ -450,7 +439,7 @@
             
             .header-logo-img { height: 24px; }
             
-            /* Đã bỏ dòng background đặc ở điện thoại để giữ hiệu ứng Gradient mượt */
+            /* Đảm bảo menu trượt chừa lại giỏ hàng (chiếm 85%) */
             .slide-menu-container {
                 max-width: 85%; 
             }
@@ -538,7 +527,7 @@
     </div>
 
 
-    <!-- Khu vực Header Mới -->
+    <!-- Khu vực Header -->
     <header>
         
         <div class="nav-left">
@@ -636,7 +625,7 @@
         </div>
         
         <div class="footer-copyright">
-            COPY RIGHT © 2026 <span class="dsa-font">DSA</span>
+            COPY RIGHT © 2026 DSA
         </div>
     </footer>
 
