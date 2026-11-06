@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA | STREETWEAR BRAND</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
         /* Khai báo Font Rushblade Demo cho dòng Copyright */
         @font-face {
@@ -38,7 +38,7 @@
             list-style: none;
         }
 
-        /* --- HEADER & MENU TRONG SUỐT --- */
+        /* --- HEADER --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -47,10 +47,12 @@
             position: sticky;
             width: 100%;
             top: 0;
-            z-index: 999;
+            z-index: 998;
             height: 70px;
             margin-bottom: -70px; 
-            background: rgba(255, 255, 255, 0.85); 
+            
+            /* Đã giảm độ đục thêm 40% (từ 0.85 xuống 0.45) */
+            background: rgba(255, 255, 255, 0.45); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -58,7 +60,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Chia header thành 3 cột bằng nhau để Logo luôn ở chính giữa */
         .nav-left, .nav-center, .nav-right {
             display: flex;
             align-items: center;
@@ -77,60 +78,7 @@
             filter: invert(1); 
         }
 
-        /* --- MENU 3 SỌC (HAMBURGER) VÀ BẢNG TRƯỢT --- */
-        .hamburger-icon {
-            width: 26px;
-            height: 26px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hamburger-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: #000;
-        }
-
-        .mobile-nav-panel {
-            position: absolute;
-            top: 70px; /* Nằm ngay dưới viền header */
-            left: 0;
-            width: 250px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            display: flex;
-            flex-direction: column;
-            box-shadow: 5px 10px 20px rgba(0,0,0,0.05);
-            border-right: 1px solid rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            
-            /* Hiệu ứng trượt từ trái sang */
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        /* Class để kích hoạt mở menu (điều khiển bằng Javascript) */
-        .mobile-nav-panel.active {
-            transform: translateX(0);
-        }
-
-        .mobile-nav-panel a {
-            padding: 20px 30px;
-            color: #000;
-            font-size: 14px;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: background 0.2s;
-        }
-
-        .mobile-nav-panel a:hover {
-            background: rgba(0,0,0,0.05);
-        }
-
-        /* --- GIỎ HÀNG CHUẨN NÚT CLICK --- */
+        /* --- GIỎ HÀNG BÊN PHẢI --- */
         .cart-link {
             position: relative;
             display: flex;
@@ -159,6 +107,171 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* --- MENU ĐIỀU HƯỚNG TRƯỢT TỪ TRÁI (OFF-CANVAS) --- */
+        
+        .hamburger-icon {
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000; /* Nằm trên cùng */
+        }
+
+        .hamburger-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #000;
+        }
+
+        /* Nền phủ toàn màn hình (Overlay) */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Khung Menu trượt */
+        .slide-menu-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            max-width: 450px; /* Độ rộng tối đa của menu trên màn hình lớn */
+            height: 100vh;
+            z-index: 1000;
+            
+            /* Hiệu ứng nền mờ nhạt dần về bên phải như ảnh 1 */
+            background: linear-gradient(to right, rgba(250,250,250,0.98) 0%, rgba(250,250,250,0.85) 60%, rgba(250,250,250,0) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            
+            transform: translateX(-100%); /* Ẩn sang trái */
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow: hidden; /* Cắt phần trượt thừa */
+        }
+
+        .slide-menu-container.active {
+            transform: translateX(0); /* Hiện ra */
+        }
+
+        /* Nút Đóng (X) chung cho các menu */
+        .close-menu-btn {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+        }
+        
+        .close-menu-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: #333;
+            stroke-width: 1;
+        }
+
+        /* Khung chứa các lớp Menu (Để tạo hiệu ứng trượt trái phải) */
+        .menu-slider {
+            display: flex;
+            width: 200%; /* Chứa 2 khung menu: Main và Sub */
+            height: 100%;
+            padding-top: 80px; /* Tránh nút X */
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        /* Điều khiển trượt sang Menu Phụ (Shop) */
+        .slide-menu-container.show-sub .menu-slider {
+            transform: translateX(-50%);
+        }
+
+        /* Cấu trúc từng bảng Menu (Panel) */
+        .menu-panel {
+            width: 50%; /* Chiếm 1/2 khung slider */
+            height: 100%;
+            padding: 0 30px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            overflow-y: auto; /* Cho phép cuộn nếu menu quá dài */
+        }
+
+        /* Styling các thẻ liên kết trong Menu */
+        .menu-panel a {
+            font-size: 15px;
+            font-weight: 400;
+            color: #333;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            transition: color 0.2s;
+        }
+
+        .menu-panel a:hover {
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* Nút Shop có mũi tên chỉ sang phải */
+        .menu-panel a svg {
+            width: 18px;
+            height: 18px;
+            stroke: #333;
+            stroke-width: 1.5;
+        }
+
+        /* Khung tiêu đề Menu Phụ (Quay lại) */
+        .sub-menu-header {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 400;
+            color: #000;
+            text-transform: none; /* Giữ chữ hoa chữ thường như ảnh 2 */
+            margin-bottom: 20px;
+            cursor: pointer;
+            background: rgba(0,0,0,0.03);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: -10px;
+        }
+
+        .sub-menu-header svg {
+            width: 20px;
+            height: 20px;
+            stroke: #000;
+            stroke-width: 1.5;
+            margin-right: 15px;
+        }
+
+        /* Căn chỉnh đường gạch ngang ở cuối menu Shop */
+        .menu-divider {
+            width: 60%;
+            height: 1px;
+            background-color: #333;
+            margin-top: 30px;
         }
 
         /* --- VIDEO LỚN --- */
@@ -330,13 +443,13 @@
                 margin-bottom: -60px; 
             }
             
-            /* Tùy chỉnh vị trí bảng trượt khớp với header điện thoại */
-            .mobile-nav-panel { top: 60px; }
-            
-            /* Giữ nguyên cấu trúc 3 cột để Logo không bị lệch */
-            .nav-left, .nav-center, .nav-right { display: flex; }
-            
             .header-logo-img { height: 24px; }
+            
+            /* Tùy chỉnh Menu trượt cho Mobile */
+            .slide-menu-container {
+                max-width: 85%; /* Menu chiếm 85% màn hình trên điện thoại */
+                background: rgba(250,250,250,0.98); /* Bỏ gradient trên đt cho rõ nét */
+            }
 
             .video-container { height: 60vh; min-height: 50vh; }
 
@@ -367,24 +480,74 @@
 </head>
 <body>
 
+    <!-- KHU VỰC MENU TRƯỢT (OFF-CANVAS) -->
+    
+    <!-- Lớp phủ tối mờ phía sau menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Khung chứa Menu Trượt -->
+    <div class="slide-menu-container" id="slideMenu">
+        
+        <!-- Nút Đóng X (Hiển thị chung) -->
+        <div class="close-menu-btn" id="closeMenuBtn">
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <!-- Khung chứa cơ chế trượt đa tầng -->
+        <div class="menu-slider">
+            
+            <!-- PANEL 1: MENU CHÍNH -->
+            <div class="menu-panel" id="mainMenuPanel">
+                <a href="#">HOME</a>
+                <!-- Nút chuyển sang bảng Shop -->
+                <a href="#" id="openShopMenuBtn">
+                    SHOP
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="#">ABOUT</a>
+            </div>
+
+            <!-- PANEL 2: MENU SHOP (SUB-MENU) -->
+            <div class="menu-panel" id="shopMenuPanel">
+                <!-- Nút Quay lại -->
+                <div class="sub-menu-header" id="backToMainMenuBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Shop
+                </div>
+                
+                <a href="#">SHOP ALL</a>
+                <a href="#">JACKETS</a>
+                <a href="#">JEANS</a>
+                <a href="#">JORTS</a>
+                <a href="#">SHIRTS</a>
+                <a href="#">ACCESSORIES</a>
+                <a href="#">GIFTS</a>
+                <a href="#">BOOTS</a>
+                
+                <div class="menu-divider"></div>
+            </div>
+
+        </div>
+    </div>
+
+
     <!-- Khu vực Header Mới Đồng bộ Mọi Thiết Bị -->
     <header>
         
-        <!-- Bên Trái: Menu 3 sọc -->
+        <!-- Bên Trái: Nút 3 sọc kích hoạt Menu -->
         <div class="nav-left">
-            <div class="hamburger-icon" id="menuToggleBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="hamburger-icon" id="openMenuBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
                 </svg>
-            </div>
-            
-            <!-- Bảng thả xuống chứa 1 2 3 -->
-            <div class="mobile-nav-panel" id="sideNavPanel">
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
             </div>
         </div>
 
@@ -395,14 +558,12 @@
             </a>
         </div>
 
-        <!-- Bên Phải: Giỏ Hàng (Clickable Link) -->
+        <!-- Bên Phải: Giỏ Hàng -->
         <div class="nav-right">
-            <!-- Thẻ <a> bọc toàn bộ icon để có thể nhấp vào chuyển trang giỏ hàng -->
             <a href="#" class="cart-link">
                 <svg class="cart-icon" viewBox="0 0 24 24">
                     <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
                 </svg>
-                <!-- Số lượng mặc định là 0 -->
                 <span class="cart-badge">0</span>
             </a>
         </div>
@@ -463,44 +624,66 @@
         </div>
     </section>
 
-    <!-- FOOTER MỚI -->
+    <!-- FOOTER -->
     <footer class="site-footer">
         
-        <!-- Ảnh Logo Footer -->
         <div class="footer-logo">
             <img src="logo.png" alt="DSA" class="footer-logo-img">
         </div>
         
-        <!-- Các liên kết mạng xã hội -->
         <div class="footer-socials">
             <a href="#">FACEBOOK</a>
             <a href="#">INSTAGRAM</a>
             <a href="#">TIKTOK</a>
         </div>
         
-        <!-- Dòng Copyright -->
         <div class="footer-copyright">
             COPY RIGHT © 2026 <span class="dsa-font">DSA</span>
         </div>
     </footer>
 
-    <!-- Đoạn Javascript điều khiển nhấp mở Menu 3 sọc -->
+ <!-- SCRIPT ĐIỀU KHIỂN LOGIC MENU TRƯỢT MƯỢT MÀ -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const menuToggleBtn = document.getElementById('menuToggleBtn');
-            const sideNavPanel = document.getElementById('sideNavPanel');
+            const openMenuBtn = document.getElementById('openMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const slideMenu = document.getElementById('slideMenu');
+            
+            const openShopMenuBtn = document.getElementById('openShopMenuBtn');
+            const backToMainMenuBtn = document.getElementById('backToMainMenuBtn');
 
-            // Khi nhấp vào nút 3 sọc thì mở/đóng bảng menu
-            menuToggleBtn.addEventListener('click', function(event) {
-                event.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
-                sideNavPanel.classList.toggle('active');
+            // Hàm mở Menu Tổng (Trượt từ ngoài vào)
+            function openMenu() {
+                menuOverlay.classList.add('active');
+                slideMenu.classList.add('active');
+            }
+
+            // Hàm đóng hoàn toàn Menu
+            function closeMenu() {
+                menuOverlay.classList.remove('active');
+                slideMenu.classList.remove('active');
+                
+                // Sau khi menu đã trượt đóng xong (0.4s), tự động reset về lớp Main Menu
+                setTimeout(() => {
+                    slideMenu.classList.remove('show-sub');
+                }, 400);
+            }
+
+            // Gắn sự kiện Mở / Đóng Menu
+            openMenuBtn.addEventListener('click', openMenu);
+            closeMenuBtn.addEventListener('click', closeMenu);
+            menuOverlay.addEventListener('click', closeMenu); // Bấm ra ngoài nền mờ cũng đóng menu
+
+            // Sự kiện nhấp vào nút "SHOP" -> Trượt sang menu con
+            openShopMenuBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // Ngăn trình duyệt nhảy trang
+                slideMenu.classList.add('show-sub');
             });
 
-            // Khi nhấp ra khoảng trắng bên ngoài thì tự động đóng menu lại
-            document.addEventListener('click', function(event) {
-                if (!sideNavPanel.contains(event.target) && !menuToggleBtn.contains(event.target)) {
-                    sideNavPanel.classList.remove('active');
-                }
+            // Sự kiện nhấp vào "<- Shop" -> Trượt lùi lại menu chính
+            backToMainMenuBtn.addEventListener('click', function() {
+                slideMenu.classList.remove('show-sub');
             });
         });
     </script>
