@@ -273,43 +273,43 @@
         }
 
         /* --- VIDEO LỚN --- */
+      /* --- VIDEO LỚN (Đã sửa lỗi tự động ôm sát khung) --- */
         .video-container {
             position: relative;
             width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, #110011 0%, #3a0033 50%, #0a000a 100%); 
+            height: auto; /* Tự động co giãn chiều cao theo đúng tỷ lệ video thực tế */
+            background-color: #050505; /* Xóa nền tím, đổi thành màu đen tiệp với màu web */
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
-            padding-bottom: 50px;
             z-index: 1;
+            overflow: hidden;
         }
         
-        .video-placeholder {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: rgba(255,255,255,0.3);
-            font-size: 14px;
-            letter-spacing: 2px;
-            border: 1px dashed rgba(255,255,255,0.2);
-            padding: 20px;
+        /* Cấu hình để video hiển thị trọn vẹn, không bị zoom hay méo */
+        .video-container video {
+            width: 100%;
+            height: auto;
+            object-fit: contain; /* Lệnh quan trọng: Ép video giữ nguyên 100% khung hình */
+            display: block;
         }
 
+        /* Chỉnh lại nút Explore nổi lên trên video */
         .btn-explore {
-            background: rgba(255,255,255,0.1); /* Nền nhạt hơn */
+            position: absolute;
+            bottom: 30px; /* Đẩy nút cách viền dưới video 30px */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(40,40,40,0.8);
             backdrop-filter: blur(5px);
             border-radius: 30px;
             padding: 12px 30px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
             color: #fff;
-            border: 1px solid rgba(255,255,255,0.2);
-            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
             z-index: 2;
         }
-
         /* --- LƯỚI SẢN PHẨM --- */
         .product-section {
             padding: 60px 30px;
@@ -443,9 +443,6 @@
             .slide-menu-container {
                 max-width: 85%; 
             }
-
-            .video-container { height: 60vh; min-height: 50vh; }
-
             .product-section { padding: 40px 15px; }
             .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .img-box { margin-bottom: 10px; }
@@ -556,13 +553,12 @@
         </div>
         
     </header>
-
-    <!-- KHU VỰC VIDEO LỚN -->
-   <div class="video-container">
-        <!-- Thuộc tính autoplay (tự phát), loop (lặp lại), muted (bắt buộc phải tắt tiếng để autoplay chạy), playsinline (hỗ trợ đt) -->
-        <<video autoplay loop muted playsinline class="hero-video">
-    <source src="video.mp4" type="video/mp4">
-</video>
+<!-- KHU VỰC VIDEO LỚN -->
+    <div class="video-container">
+        <!-- Thay 'video-cua-ban.mp4' bằng link hoặc tên file video thực tế -->
+        <video src="video-cua-ban.mp4" autoplay loop muted playsinline></video>
+        
+        <a href="#" class="btn-explore">EXPLORE</a>
     </div>
     <!-- LƯỚI SẢN PHẨM -->
     <section class="product-section">
