@@ -31,7 +31,7 @@
             list-style: none;
         }
 
-        /* --- HEADER --- */
+      /* --- HEADER --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -43,6 +43,18 @@
             z-index: 998;
             height: 70px;
             margin-bottom: -70px; 
+            background: transparent; 
+            border-bottom: 1px solid transparent;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        header.header-scrolled {
+            background: rgba(255, 255, 255, 0.55); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
             
             /* Tăng độ đục từ 0.45 lên 0.55 */
             background: rgba(255, 255, 255, 0.55); 
@@ -139,15 +151,22 @@
             visibility: visible;
         }
 
-        /* Khung Menu trượt */
+      /* Khung Menu trượt */
         .slide-menu-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            max-width: 450px; 
+            max-width: 100%; 
             height: 100vh;
             z-index: 1000;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow: hidden; 
+        }
             
             /* Gradient với độ đục tăng lên 0.55 ở viền trái */
             background: linear-gradient(to right, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
@@ -199,15 +218,23 @@
         }
 
         /* Cấu trúc từng bảng Menu (Panel) */
-        .menu-panel {
-            width: 50%; /* Chiếm 1/2 khung slider */
-            height: 100%;
-            padding: 0 30px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            overflow-y: auto; 
-        }
+       .menu-panel {
+    width: 50%;
+    height: 100%;
+    padding: 0 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    overflow-y: auto; 
+    /* 2 dòng này Ẩn thanh cuộn trên IE, Edge và Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+/* Thêm đoạn này ngay dưới .menu-panel để Ẩn thanh cuộn trên Chrome, Safari */
+.menu-panel::-webkit-scrollbar {
+    display: none;
+}
 
         /* Styling các thẻ liên kết trong Menu - CHỮ MÀU TRẮNG & MỎNG */
         .menu-panel a {
@@ -422,9 +449,9 @@
             
             .header-logo-img { height: 24px; }
             
-            /* Đảm bảo menu trượt chừa lại giỏ hàng (chiếm 85%) */
+            /* Đảm bảo menu trượt full màn*/
             .slide-menu-container {
-                max-width: 85%; 
+                max-width: 100%; 
             }
             .product-section { padding: 40px 15px; }
             .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -642,6 +669,21 @@
 
             backToMainMenuBtn.addEventListener('click', function() {
                 slideMenu.classList.remove('show-sub');
+            });
+            // --- Logic đổi màu Header khi cuộn qua Video ---
+            const header = document.querySelector('header');
+            const videoContainer = document.querySelector('.video-container');
+
+            window.addEventListener('scroll', function() {
+                // Lấy chiều cao của video
+                const videoHeight = videoContainer.offsetHeight;
+                
+                // Trừ đi 70px chiều cao của header để khớp vị trí chính xác
+                if (window.scrollY > videoHeight - 70) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
             });
         });
     </script>
