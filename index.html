@@ -151,7 +151,7 @@
             visibility: visible;
         }
 
-      /* Khung Menu trượt */
+     /* Khung Menu trượt */
         .slide-menu-container {
             position: fixed;
             top: 0;
@@ -167,6 +167,13 @@
             transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
             overflow: hidden; 
         }
+
+        /*menu trượt ra */
+        .slide-menu-container.active {
+            transform: translateX(0); 
+        }
+
+        /* Nút Đóng (X) chung cho các menu */
             
             /* Gradient với độ đục tăng lên 0.55 ở viền trái */
             background: linear-gradient(to right, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
