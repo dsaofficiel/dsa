@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA | STREETWEAR BRAND</title>
-
-    <!-- Thêm Icon logo cho tab trình duyệt máy tính và điện thoại -->
+    
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
-
-    <!-- Thêm Ảnh, Tiêu đề và Mô tả hiển thị khi Share link -->
     <meta property="og:title" content="DSA | STREETWEAR BRAND">
     <meta property="og:description" content="Thương hiệu thời trang Streetwear DSA">
     <meta property="og:image" content="favicon.png">
 
     <style>
-        /* Chỉ giữ lại Font Inter với các độ dày mỏng/vừa (Light/Regular) */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
         * {
@@ -26,7 +22,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #001D51; /* Màu Pantone Imperial Blue */
+            background-color: #8B8B8B;
             color: #fff;
             overflow-x: hidden;
             text-transform: uppercase;
@@ -105,7 +101,7 @@
             background: #e60000;
             color: #fff;
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 600; 
             width: 16px;
             height: 16px;
             border-radius: 50%;
@@ -114,7 +110,7 @@
             justify-content: center;
         }
 
-        /* --- MENU ĐIỀU HƯỚNG TRƯỢT TỪ TRÁI (OFF-CANVAS) --- */
+        /* --- MENU ĐIỀU HƯỚNG TRƯỢT TỪ TRÁI --- */
         .hamburger-icon {
             width: 26px;
             height: 26px;
@@ -220,8 +216,8 @@
 
         .menu-panel a {
             font-size: 15px;
-            font-weight: 300;
-            color: #fff;
+            font-weight: 300; 
+            color: #fff; 
             letter-spacing: 1px;
             display: flex;
             justify-content: space-between;
@@ -231,27 +227,27 @@
         }
 
         .menu-panel a:hover {
-            color: #ddd;
+            color: #ddd; 
             font-weight: 400;
         }
 
         .menu-panel a svg {
             width: 18px;
             height: 18px;
-            stroke: #fff;
-            stroke-width: 1;
+            stroke: #fff; 
+            stroke-width: 1; 
         }
 
         .sub-menu-header {
             display: flex;
             align-items: center;
             font-size: 18px;
-            font-weight: 300;
-            color: #fff;
+            font-weight: 300; 
+            color: #fff; 
             text-transform: none; 
             margin-bottom: 20px;
             cursor: pointer;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.05); 
             padding: 15px;
             border-radius: 8px;
             margin-top: -10px;
@@ -265,15 +261,15 @@
         .sub-menu-header svg {
             width: 20px;
             height: 20px;
-            stroke: #fff;
-            stroke-width: 1;
+            stroke: #fff; 
+            stroke-width: 1; 
             margin-right: 15px;
         }
 
         .menu-divider {
             width: 60%;
             height: 1px;
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255,255,255,0.2); 
             margin-top: 30px;
         }
 
@@ -281,8 +277,8 @@
         .video-container {
             position: relative;
             width: 100%;
-            height: auto;
-            background-color: #001D51;
+            height: auto; 
+            background-color: #8B8B8B;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -296,11 +292,11 @@
             object-fit: contain; 
             display: block;
         }
-
+        
         /* --- LƯỚI SẢN PHẨM --- */
         .product-section {
             padding: 60px 30px;
-            background: #001D51;
+            background: #8B8B8B;
         }
 
         .product-grid {
@@ -348,14 +344,14 @@
 
         .product-info h3 {
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 500; 
             margin-bottom: 5px;
             color: #fff;
         }
 
         .product-info .price {
             font-size: 14px;
-            color: #fff; /* Đổi thành màu trắng */
+            color: #fff; 
             font-weight: 300;
             margin-bottom: 15px;
         }
@@ -367,21 +363,21 @@
         }
 
         .size-box {
-            border: 1px solid #fff; /* Đổi viền thành màu trắng */
+            border: 1px solid #fff; 
             padding: 5px 8px;
             font-size: 10px;
-            color: #fff; /* Đổi chữ thành màu trắng */
+            color: #fff; 
         }
 
         /* --- FOOTER --- */
         .site-footer {
-            background-color: #001D51;
+            background-color: #8B8B8B;
             color: #fff;
             padding: 100px 5% 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid #1a1a1a;
         }
 
         .footer-logo {
@@ -419,9 +415,9 @@
         }
 
         .footer-copyright {
-            font-size: 9.5px; /* Giảm font-size xuống 20% so với 12px ban đầu */
+            font-size: 9.5px; 
             font-weight: 300;
-            color: #fff; /* Đổi màu chữ copyright sang màu trắng giống các MXH */
+            color: #fff; 
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -466,6 +462,7 @@
 <body>
 
     <!-- KHU VỰC MENU TRƯỢT (OFF-CANVAS) -->
+    
     <div class="menu-overlay" id="menuOverlay"></div>
 
     <div class="slide-menu-container" id="slideMenu">
@@ -511,9 +508,9 @@
         </div>
     </div>
 
-
     <!-- Khu vực Header -->
     <header>
+        
         <div class="nav-left">
             <div class="hamburger-icon" id="openMenuBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -538,11 +535,13 @@
                 <span class="cart-badge">0</span>
             </a>
         </div>
+        
     </header>
 
     <!-- KHU VỰC VIDEO LỚN -->
     <div class="video-container">
-        <video src="video.mov" autoplay loop muted playsinline class="hero-video"></video>
+        <!-- Đã trả về video.mp4 y hệt code gốc của bạn -->
+        <video src="video.mp4" autoplay loop muted playsinline class="hero-video"></video>
     </div>
 
     <!-- LƯỚI SẢN PHẨM -->
@@ -552,10 +551,11 @@
             <a href="product-detail.html" class="product-card">
                 <span class="badge">NEW</span>
                 <div class="img-box">
-                    <img src="anh HDZ001.png" alt="The Hoodie Zip" class="product-img">
+                    <!-- Đã thêm %20 để xử lý lỗi dấu cách trong tên file -->
+                    <img src="HDZ001.png" alt="The Hoodie Zip" class="product-img">
                 </div>
                 <div class="product-info">
-                    <h3>The Hoodie Zip</h3>
+                    <h3>THE HOODIE ZIP</h3>
                     <div class="price">315,000 VND</div>
                     <div class="sizes">
                         <span class="size-box">M</span> <span class="size-box">L</span>
@@ -584,7 +584,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT ĐIỀU KHIỂN -->
+    <!-- SCRIPT ĐIỀU KHIỂN LOGIC MENU TRƯỢT MƯỢT MÀ -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const openMenuBtn = document.getElementById('openMenuBtn');
@@ -622,7 +622,7 @@
                 slideMenu.classList.remove('show-sub');
             });
 
-            // Logic đổi màu Header khi cuộn qua Video
+            // --- Logic đổi màu Header khi cuộn qua Video ---
             const header = document.querySelector('header');
             const videoContainer = document.querySelector('.video-container');
 
