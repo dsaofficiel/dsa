@@ -59,31 +59,28 @@
       .slide-menu-container {
             position: fixed; top: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; z-index: 998;
             
-            /* 1. Extended Background Gradient: 
-               Holds solid white until 30%, then gradually fades to completely transparent by 80% */
+            /* 1. NỀN: Kéo giãn dải màu chạm mốc 100% (mép phải) để không bị đứt đoạn giữa chừng */
             background: linear-gradient(to right, 
                 rgba(254, 254, 254, 1) 0%, 
-                rgba(254, 254, 254, 0.9) 30%, 
-                rgba(254, 254, 254, 0.4) 55%, 
-                rgba(254, 254, 254, 0) 80%);
+                rgba(254, 254, 254, 0.95) 30%, 
+                rgba(254, 254, 254, 0.4) 70%, 
+                rgba(254, 254, 254, 0) 100%);
             
-            /* 2. Base Blur Effect */
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px); 
-        
-            /* 3. The Crucial Mask: 
-               This dictates exactly where the blur is allowed to render. 
-               By matching the background gradient stops, the blur fades out at the exact same rate as the white color, eliminating any harsh edge. */
+            /* 2. HIỆU ỨNG KÍNH (BLUR) */
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); 
+            
+            /* 3. MẶT NẠ (MASK): Đồng bộ tới 100% sử dụng 'transparent' để giấu vạch cứng ra khỏi màn hình */
             -webkit-mask-image: linear-gradient(to right, 
                 rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,0.9) 30%, 
-                rgba(0,0,0,0.4) 55%, 
-                rgba(0,0,0,0) 80%);
+                rgba(0,0,0,0.95) 30%, 
+                rgba(0,0,0,0.4) 70%, 
+                transparent 100%);
             mask-image: linear-gradient(to right, 
                 rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,0.9) 30%, 
-                rgba(0,0,0,0.4) 55%, 
-                rgba(0,0,0,0) 80%);
+                rgba(0,0,0,0.95) 30%, 
+                rgba(0,0,0,0.4) 70%, 
+                transparent 100%);
             
             transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); overflow: hidden; 
         }
