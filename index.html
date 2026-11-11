@@ -56,18 +56,34 @@
         /* --- MENU TRƯỢT TỪ TRÁI --- */
         .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 997; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
         .menu-overlay.active { opacity: 1; visibility: visible; }
-       .slide-menu-container {
+      .slide-menu-container {
             position: fixed; top: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; z-index: 998;
             
-            /* 1. Nền màu: Trắng đặc từ 0% đến 40%, sau đó nhạt dần về trong suốt ở mép phải */
-            background: linear-gradient(to right, rgba(254, 254, 254, 1) 40%, rgba(254, 254, 254, 0) 100%);
+            /* 1. Extended Background Gradient: 
+               Holds solid white until 30%, then gradually fades to completely transparent by 80% */
+            background: linear-gradient(to right, 
+                rgba(254, 254, 254, 1) 0%, 
+                rgba(254, 254, 254, 0.9) 30%, 
+                rgba(254, 254, 254, 0.4) 55%, 
+                rgba(254, 254, 254, 0) 80%);
             
-            /* 2. Hiệu ứng kính (blur) phủ lên toàn bộ */
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            /* 2. Base Blur Effect */
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
             
-            /* 3. Mặt nạ (Mask): Triệt tiêu dần độ blur từ 40% đổ đi để mép phải hoàn toàn trong suốt, không bị viền cứng */
-            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
-            mask-image: linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+            /* 3. The Crucial Mask: 
+               This dictates exactly where the blur is allowed to render. 
+               By matching the background gradient stops, the blur fades out at the exact same rate as the white color, eliminating any harsh edge. */
+            -webkit-mask-image: linear-gradient(to right, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0.9) 30%, 
+                rgba(0,0,0,0.4) 55%, 
+                rgba(0,0,0,0) 80%);
+            mask-image: linear-gradient(to right, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0.9) 30%, 
+                rgba(0,0,0,0.4) 55%, 
+                rgba(0,0,0,0) 80%);
             
             transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); overflow: hidden; 
         }
