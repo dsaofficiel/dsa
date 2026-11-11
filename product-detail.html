@@ -41,22 +41,49 @@
         .hamburger-icon svg { width: 100%; height: 100%; stroke: #000; }
 
         /* MENU TRƯỢT TỪ TRÁI */
-        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 997; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.2); z-index: 997; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
         .menu-overlay.active { opacity: 1; visibility: visible; }
-      .slide-menu-container {
+      /* 1. LỚP CHÍNH: Chỉ xử lý nền chuyển sắc siêu mượt (chia 5 mốc để tan chảy tự nhiên) */
+        .slide-menu-container {
             position: fixed; top: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; z-index: 998;
             
-            /* 1. Nền màu: Trắng đặc từ 0% đến 40%, sau đó nhạt dần về trong suốt ở mép phải */
-            background: linear-gradient(to right, rgba(254, 254, 254, 1) 40%, rgba(254, 254, 254, 0) 100%);
+            background: linear-gradient(to right, 
+                rgba(254, 254, 254, 1) 0%, 
+                rgba(254, 254, 254, 0.9) 25%, 
+                rgba(254, 254, 254, 0.5) 50%,
+                rgba(254, 254, 254, 0.1) 75%, 
+                rgba(254, 254, 254, 0) 100%);
             
-            /* 2. Hiệu ứng kính (blur) phủ lên toàn bộ */
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            transform: translateX(-100%); 
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); 
+            overflow: hidden; 
+        }
+
+        /* 2. LỚP ẢO TÁCH RỜI: Chỉ xử lý hiệu ứng Kính mờ (Sửa triệt để lỗi vạch cứng của Safari/iOS) */
+        .slide-menu-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1; /* Ép nằm phía sau chữ menu */
+            pointer-events: none; /* Tránh cản trở việc bấm nút */
             
-            /* 3. Mặt nạ (Mask): Triệt tiêu dần độ blur từ 40% đổ đi để mép phải hoàn toàn trong suốt, không bị viền cứng */
-            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
-            mask-image: linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+            /* Hiệu ứng kính */
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); 
             
-            transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); overflow: hidden; 
+            /* Mặt nạ cắt lớp kính đồng bộ với nền */
+            -webkit-mask-image: linear-gradient(to right, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,1) 25%, 
+                rgba(0,0,0,0.6) 50%,
+                rgba(0,0,0,0.15) 75%,
+                rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to right, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,1) 25%, 
+                rgba(0,0,0,0.6) 50%,
+                rgba(0,0,0,0.15) 75%,
+                rgba(0,0,0,0) 100%);
         }
         .slide-menu-container.active { transform: translateX(0); }
         .close-menu-btn { position: absolute; top: 20px; left: 30px; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1001; }
