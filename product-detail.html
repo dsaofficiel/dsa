@@ -19,7 +19,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #8B8B8B; /* Giữ nguyên màu nền của Home */
+            background-color: #8B8B8B; 
             color: #fff;
             overflow-x: hidden;
             text-transform: uppercase;
@@ -34,18 +34,18 @@
             list-style: none;
         }
 
-        /* --- DÙNG LẠI HEADER TỪ TRANG CHỦ --- */
+        /* --- HEADER --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 40px; 
-            position: fixed; /* Fix cứng để cuộn trang vẫn thấy */
+            position: fixed; 
             width: 100%;
             top: 0;
             z-index: 998;
             height: 70px;
-            background: rgba(255, 255, 255, 0.2); /* Nền mờ nhẹ mặc định */
+            background: rgba(255, 255, 255, 0.2); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid transparent;
@@ -69,59 +69,21 @@
         .nav-center { justify-content: center; }
         .nav-right { justify-content: flex-end; }
 
-        .header-logo-img {
-            height: 30px;
-            width: auto;
-            display: block;
-        }
+        .header-logo-img { height: 30px; width: auto; display: block; }
 
-        .cart-link {
-            position: relative;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        .cart-icon {
-            width: 24px;
-            height: 24px;
-            fill: #fff;
-        }
-
+        .cart-link { position: relative; display: flex; align-items: center; cursor: pointer; color: #fff; }
+        .cart-icon { width: 24px; height: 24px; fill: #fff; }
         .cart-badge {
-            position: absolute;
-            top: -6px;
-            right: -8px;
-            background: #e60000;
-            color: #fff;
-            font-size: 10px;
-            font-weight: 600; 
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: -6px; right: -8px; background: #e60000; color: #fff;
+            font-size: 10px; font-weight: 600; width: 16px; height: 16px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        /* --- DÙNG LẠI MENU TRƯỢT --- */
-        .hamburger-icon {
-            width: 26px;
-            height: 26px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
+        /* --- MENU TRƯỢT --- */
+        .hamburger-icon { width: 26px; height: 26px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; }
         .hamburger-icon svg { width: 100%; height: 100%; stroke: #fff; }
 
-        .menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(0,0,0,0.6); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.4s ease;
-        }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
         .menu-overlay.active { opacity: 1; visibility: visible; }
 
         .slide-menu-container {
@@ -151,123 +113,83 @@
 
 
         /* ========================================================
-           TRANG CHI TIẾT SẢN PHẨM (BỐ CỤC ATELIER DETAILS)
+           TRANG CHI TIẾT SẢN PHẨM 
         ======================================================== */
         .pdp-container {
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            padding: 120px 40px 60px; /* Padding top để tránh bị header che */
+            padding: 120px 40px 60px; 
             max-width: 1400px;
             margin: 0 auto;
             gap: 50px;
         }
 
-        /* Khối Hình ảnh bên trái */
+        /* --- BỘ PHẬN CHÍNH SỬA: SLIDER ẢNH KÉO NGANG --- */
         .pdp-images {
-            flex: 6; /* Tỉ lệ 6 phần */
+            flex: 6; 
             display: flex;
-            flex-direction: column;
-            gap: 15px; /* Khoảng cách giữa các ảnh cuộn dọc */
+            flex-direction: row; /* Xếp ảnh theo hàng ngang */
+            overflow-x: auto; /* Cho phép cuộn ngang */
+            scroll-snap-type: x mandatory; /* Hút ảnh vừa khít màn hình */
+            scroll-behavior: smooth;
+            cursor: grab; /* Hiện biểu tượng bàn tay kéo thả */
+            
+            /* Ẩn thanh cuộn mặc định cho mượt */
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+
+        .pdp-images::-webkit-scrollbar {
+            display: none; 
+        }
+
+        .pdp-images:active {
+            cursor: grabbing; /* Đổi biểu tượng khi đang kéo */
         }
         
         .pdp-images img {
-            width: 100%;
+            flex: 0 0 100%; /* Ép mỗi ảnh chiếm trọn 1 khung 100% */
+            min-width: 100%;
             height: auto;
+            aspect-ratio: 3/4; /* Giữ tỷ lệ khung hình không bị méo */
+            object-fit: cover;
             display: block;
-            background: #111; /* Đệm nền tối nếu ảnh load chậm */
+            background: #111; 
+            scroll-snap-align: start; /* Điểm khóa ảnh khi kéo xong */
+            pointer-events: none; /* Khóa hành động kéo thả file ảnh mặc định của trình duyệt */
         }
 
-        /* Khối Thông tin bên phải (Sticky) */
+        /* --- THÔNG TIN SẢN PHẨM --- */
         .pdp-info {
-            flex: 4; /* Tỉ lệ 4 phần */
-            position: sticky; /* Ghim thông tin khi cuộn ảnh bên trái */
+            flex: 4; 
+            position: sticky; 
             top: 120px; 
             padding-right: 20px;
         }
 
-        .pdp-breadcrumbs {
-            font-size: 10px;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 20px;
-        }
+        .pdp-breadcrumbs { font-size: 10px; letter-spacing: 1px; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
+        .pdp-title { font-size: 26px; font-weight: 500; margin-bottom: 15px; letter-spacing: 1px; }
+        .pdp-price { font-size: 18px; font-weight: 300; margin-bottom: 40px; color: #fff; }
+        .pdp-size-title { font-size: 11px; letter-spacing: 1px; margin-bottom: 15px; color: rgba(255,255,255,0.8); }
 
-        .pdp-title {
-            font-size: 26px;
-            font-weight: 500;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .pdp-price {
-            font-size: 18px;
-            font-weight: 300;
-            margin-bottom: 40px;
-            color: #fff;
-        }
-
-        .pdp-size-title {
-            font-size: 11px;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            color: rgba(255,255,255,0.8);
-        }
-
-        .pdp-sizes-wrapper {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 40px;
-        }
-
+        .pdp-sizes-wrapper { display: flex; gap: 10px; margin-bottom: 40px; }
         .pdp-size-btn {
-            background: transparent;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 12px 24px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
+            background: transparent; border: 1px solid #fff; color: #fff; padding: 12px 24px;
+            font-size: 12px; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
         }
-
-        .pdp-size-btn:hover, .pdp-size-btn.active {
-            background: #fff;
-            color: #000;
-        }
+        .pdp-size-btn:hover, .pdp-size-btn.active { background: #fff; color: #000; }
 
         .pdp-add-to-cart {
-            width: 100%;
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 18px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            transition: background 0.3s;
+            width: 100%; background: #fff; color: #000; border: none; padding: 18px; font-size: 13px;
+            font-weight: 600; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; margin-bottom: 40px; transition: background 0.3s;
         }
+        .pdp-add-to-cart:hover { background: #ddd; }
 
-        .pdp-add-to-cart:hover {
-            background: #ddd;
-        }
-
-        .pdp-description {
-            font-size: 13px;
-            line-height: 1.8;
-            font-weight: 300;
-            color: rgba(255,255,255,0.8);
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 30px;
-        }
-        
+        .pdp-description { font-size: 13px; line-height: 1.8; font-weight: 300; color: rgba(255,255,255,0.8); border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; }
         .pdp-description p { margin-bottom: 15px; }
 
-
-        /* --- DÙNG LẠI FOOTER --- */
+        /* --- FOOTER --- */
         .site-footer { background-color: #8B8B8B; color: #fff; padding: 100px 5% 30px; display: flex; flex-direction: column; align-items: center; border-top: 1px solid rgba(255,255,255,0.2); }
         .footer-logo { margin-bottom: 40px; text-align: center; }
         .footer-logo-img { height: 90px; width: auto; display: block; margin: 0 auto; }
@@ -276,11 +198,15 @@
         .footer-socials a:hover { color: #aaa; }
         .footer-copyright { font-size: 9.5px; font-weight: 300; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* --- RESPONSIVE CHO ĐIỆN THOẠI (Xếp dọc) --- */
+        /* --- RESPONSIVE CHO ĐIỆN THOẠI --- */
         @media (max-width: 768px) {
             header { padding: 0 20px; height: 60px; }
             .header-logo-img { height: 24px; }
             .pdp-container { flex-direction: column; padding: 80px 20px 40px; gap: 30px; }
+            
+            /* Điện thoại vuốt ngang nên vẫn giữ cấu trúc Slider, xóa các giới hạn tỷ lệ */
+            .pdp-images { width: 100%; } 
+
             .pdp-info { position: relative; top: 0; width: 100%; padding-right: 0; }
             .pdp-title { font-size: 22px; }
             
@@ -347,28 +273,21 @@
         </div>
     </header>
 
-    <!-- NỘI DUNG CHI TIẾT SẢN PHẨM (GIAO DIỆN ATELIER) -->
+    <!-- NỘI DUNG CHI TIẾT SẢN PHẨM -->
     <main class="pdp-container">
         
-        <!-- Cột trái: Hình ảnh sản phẩm cuộn dọc -->
-        <div class="pdp-images">
-            <!-- Bạn có thể copy dòng <img> này thêm 2-3 lần và đổi tên hdz002.png, hdz003.png để có nhiều ảnh -->
+        <!-- Cột trái: SLIDER HÌNH ẢNH KÉO NGANG -->
+        <div class="pdp-images" id="imageSlider">
             <img src="HDZ001.jpg" alt="The Hoodie Zip View 1">
-                        <img src="HDZ001-2.jpg" alt="The Hoodie Zip View 1">
-                        <img src="HDZ001-3.jpg" alt="The Hoodie Zip View 1">
-                        <img src="HDZ001-4.jpg" alt="The Hoodie Zip View 1">
-                        <img src="HDZ001-5.jpg" alt="The Hoodie Zip View 1">
-
-
+            <img src="HDZ001-2.jpg" alt="The Hoodie Zip View 2">
+            <img src="HDZ001-3.jpg" alt="The Hoodie Zip View 3">
+            <img src="HDZ001-4.jpg" alt="The Hoodie Zip View 4">
+            <img src="HDZ001-5.jpg" alt="The Hoodie Zip View 5">
         </div>
 
         <!-- Cột phải: Thông tin cố định (Sticky) -->
         <div class="pdp-info">
-            
-            <div class="pdp-breadcrumbs">
-                HOME / TOP / THE HOODIE ZIP
-            </div>
-            
+            <div class="pdp-breadcrumbs">HOME / TOP / THE HOODIE ZIP</div>
             <h1 class="pdp-title">THE HOODIE ZIP</h1>
             <p class="pdp-price">315,000 VND</p>
 
@@ -389,7 +308,6 @@
                 </p>
                 <p>Người mẫu cao 1m75 mặc size L.</p>
             </div>
-
         </div>
 
     </main>
@@ -450,6 +368,36 @@
                     sizeBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                 });
+            });
+
+            // ==========================================
+            // LOGIC KÉO THẢ MƯỢT MÀ CHO SLIDER HÌNH ẢNH
+            // ==========================================
+            const slider = document.getElementById('imageSlider');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 1.5; // Tốc độ lướt (nhân 1.5 để kéo nhanh hơn)
+                slider.scrollLeft = scrollLeft - walk;
             });
         });
     </script>
