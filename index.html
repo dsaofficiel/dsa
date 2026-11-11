@@ -14,544 +14,209 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #8B8B8B;
-            color: #fff;
-            overflow-x: hidden;
-            text-transform: uppercase;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: #8B8B8B; color: #fff; overflow-x: hidden; text-transform: uppercase; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
         /* --- HEADER --- */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px; 
-            position: sticky;
-            width: 100%;
-            top: 0;
-            z-index: 998;
-            height: 70px;
-            margin-bottom: -70px; 
-            background: transparent; 
-            border-bottom: 1px solid transparent;
-            color: #fff;
-            transition: all 0.3s ease;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 40px; 
+            position: sticky; width: 100%; top: 0; z-index: 996; height: 70px; margin-bottom: -70px; 
+            background: transparent; border-bottom: 1px solid transparent; color: #fff; transition: all 0.3s ease;
         }
-
-        header.header-scrolled {
-            background: rgba(255, 255, 255, 0.55); 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-left, .nav-center, .nav-right {
-            display: flex;
-            align-items: center;
-            flex: 1; 
-            height: 100%;
-        }
-
-        .nav-left { justify-content: flex-start; }
-        .nav-center { justify-content: center; }
-        .nav-right { justify-content: flex-end; }
-
-        .header-logo-img {
-            height: 30px;
-            width: auto;
-            display: block;
-        }
-
-        /* --- GIỎ HÀNG BÊN PHẢI --- */
-        .cart-link {
-            position: relative;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        .cart-icon {
-            width: 24px;
-            height: 24px;
-            fill: #fff;
-        }
-
-        .cart-badge {
-            position: absolute;
-            top: -6px;
-            right: -8px;
-            background: #e60000;
-            color: #fff;
-            font-size: 10px;
-            font-weight: 600; 
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* --- MENU ĐIỀU HƯỚNG TRƯỢT TỪ TRÁI --- */
-        .hamburger-icon {
-            width: 26px;
-            height: 26px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .hamburger-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: #fff;
-        }
-
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0,0,0,0.6);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease;
-        }
-
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Khung Menu trượt */
-        .slide-menu-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            max-width: 100%; 
-            height: 100vh;
-            z-index: 1000;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            transform: translateX(-100%);
-            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-            overflow: hidden; 
-        }
-
-        .slide-menu-container.active {
-            transform: translateX(0); 
-        }
-
-        .close-menu-btn {
-            position: absolute;
-            top: 20px;
-            left: 30px;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-        }
+        header.header-scrolled { background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-left, .nav-center, .nav-right { display: flex; align-items: center; flex: 1; height: 100%; }
+        .nav-left { justify-content: flex-start; } .nav-center { justify-content: center; } .nav-right { justify-content: flex-end; }
+        .header-logo-img { height: 30px; width: auto; display: block; }
         
-        .close-menu-btn svg {
-            width: 24px;
-            height: 24px;
-            stroke: #fff;
-            stroke-width: 1;
-        }
+        .cart-link { position: relative; display: flex; align-items: center; cursor: pointer; color: #fff; }
+        .cart-icon { width: 24px; height: 24px; fill: #fff; }
+        .cart-badge { position: absolute; top: -6px; right: -8px; background: #e60000; color: #fff; font-size: 10px; font-weight: 600; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-        .menu-slider {
-            display: flex;
-            width: 200%;
-            height: 100%;
-            padding-top: 80px; 
-            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        /* --- MENU TRƯỢT TỪ TRÁI --- */
+        .hamburger-icon { width: 26px; height: 26px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .hamburger-icon svg { width: 100%; height: 100%; stroke: #fff; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 997; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
+        .menu-overlay.active { opacity: 1; visibility: visible; }
+        .slide-menu-container {
+            position: fixed; top: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; z-index: 998;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); overflow: hidden; 
         }
+        .slide-menu-container.active { transform: translateX(0); }
+        .close-menu-btn { position: absolute; top: 20px; left: 30px; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1001; }
+        .close-menu-btn svg { width: 24px; height: 24px; stroke: #fff; stroke-width: 1; }
+        .menu-slider { display: flex; width: 200%; height: 100%; padding-top: 80px; transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); }
+        .slide-menu-container.show-sub .menu-slider { transform: translateX(-50%); }
+        .menu-panel { width: 50%; height: 100%; padding: 0 30px 40px; display: flex; flex-direction: column; gap: 25px; overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none; }
+        .menu-panel::-webkit-scrollbar { display: none; }
+        .menu-panel a { font-size: 15px; font-weight: 300; color: #fff; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; padding: 10px 0; transition: color 0.2s, font-weight 0.2s; }
+        .menu-panel a:hover { color: #ddd; font-weight: 400; }
+        .menu-panel a svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 1; }
+        .sub-menu-header { display: flex; align-items: center; font-size: 18px; font-weight: 300; color: #fff; text-transform: none; margin-bottom: 20px; cursor: pointer; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-top: -10px; transition: background 0.2s; }
+        .sub-menu-header:hover { background: rgba(255,255,255,0.1); }
+        .sub-menu-header svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 1; margin-right: 15px; }
+        .menu-divider { width: 60%; height: 1px; background-color: rgba(255,255,255,0.2); margin-top: 30px; }
 
-        .slide-menu-container.show-sub .menu-slider {
-            transform: translateX(-50%);
+        /* --- GIỎ HÀNG TRƯỢT TỪ PHẢI --- */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 998; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+        .cart-drawer {
+            position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100vh; z-index: 999;
+            background-color: #fff; color: #000; display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); text-transform: none;
         }
+        .cart-drawer.active { transform: translateX(0); }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; border-bottom: 1px solid #eee; }
+        .cart-header h2 { font-size: 22px; font-weight: 400; letter-spacing: 0.5px; }
+        .close-cart-btn { cursor: pointer; width: 24px; height: 24px; }
+        .close-cart-btn svg { width: 100%; height: 100%; stroke: #000; stroke-width: 1.2; }
+        
+        .cart-table-header { display: flex; justify-content: space-between; padding: 15px 30px; font-size: 11px; letter-spacing: 1px; color: #888; text-transform: uppercase; border-bottom: 1px solid #eee; }
+        .cart-body { flex: 1; overflow-y: auto; padding: 20px 30px; }
+        
+        .empty-cart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding-top: 40px; }
+        .empty-cart-container h3 { font-size: 22px; font-weight: 400; margin-bottom: 30px; letter-spacing: 0.5px; }
+        .continue-shopping-btn { width: 100%; background: #000; color: #fff; border: none; padding: 18px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.3s; }
+        .continue-shopping-btn:hover { background: #333; }
 
-        .menu-panel {
-            width: 50%;
-            height: 100%;
-            padding: 0 30px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            overflow-y: auto; 
-            -ms-overflow-style: none; 
-            scrollbar-width: none; 
-        }
+        .cart-item { display: flex; gap: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; margin-bottom: 20px; }
+        .cart-item-img { width: 90px; height: 110px; background: #f5f5f5; }
+        .cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+        .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .cart-item-top { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 6px; }
+        .cart-item-title { font-size: 13px; font-weight: 600; white-space: nowrap; margin: 0; }
+        .cart-item-price-total { font-size: 13px; font-weight: 500; white-space: nowrap; margin-left: 15px; }
+        .cart-item-size { font-size: 12px; color: #888; margin-bottom: 15px; }
+        
+        .cart-item-actions { display: flex; justify-content: space-between; align-items: center; }
+        .qty-selector { display: flex; border: 1px solid #ddd; width: 100px; height: 36px; }
+        .qty-btn { flex: 1; background: transparent; border: none; font-size: 16px; cursor: pointer; }
+        .qty-input { flex: 1; width: 100%; border: none; text-align: center; font-size: 14px; font-family: 'Inter', sans-serif; pointer-events: none; }
+        .remove-btn { cursor: pointer; background: transparent; border: none; }
+        .remove-btn svg { width: 18px; height: 18px; fill: #666; transition: fill 0.2s; }
+        .remove-btn:hover svg { fill: #000; }
 
-        .menu-panel::-webkit-scrollbar {
-            display: none;
-        }
-
-        .menu-panel a {
-            font-size: 15px;
-            font-weight: 300; 
-            color: #fff; 
-            letter-spacing: 1px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            transition: color 0.2s, font-weight 0.2s;
-        }
-
-        .menu-panel a:hover {
-            color: #ddd; 
-            font-weight: 400;
-        }
-
-        .menu-panel a svg {
-            width: 18px;
-            height: 18px;
-            stroke: #fff; 
-            stroke-width: 1; 
-        }
-
-        .sub-menu-header {
-            display: flex;
-            align-items: center;
-            font-size: 18px;
-            font-weight: 300; 
-            color: #fff; 
-            text-transform: none; 
-            margin-bottom: 20px;
-            cursor: pointer;
-            background: rgba(255,255,255,0.05); 
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: -10px;
-            transition: background 0.2s;
-        }
-
-        .sub-menu-header:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        .sub-menu-header svg {
-            width: 20px;
-            height: 20px;
-            stroke: #fff; 
-            stroke-width: 1; 
-            margin-right: 15px;
-        }
-
-        .menu-divider {
-            width: 60%;
-            height: 1px;
-            background-color: rgba(255,255,255,0.2); 
-            margin-top: 30px;
-        }
+        .cart-footer { padding: 30px; border-top: 1px solid #eee; background: #fafafa; }
+        .cart-subtotal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .cart-subtotal span:first-child { font-size: 18px; font-weight: 400; }
+        .cart-subtotal span:last-child { font-size: 20px; font-weight: 500; }
+        .cart-note { font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.5; }
+        .checkout-btn { width: 100%; background: #000; color: #fff; border: none; padding: 18px; font-size: 14px; font-weight: 500; letter-spacing: 1px; cursor: pointer; transition: background 0.3s; }
+        .checkout-btn:hover { background: #333; }
 
         /* --- VIDEO LỚN --- */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: auto; 
-            background-color: #8B8B8B;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .video-container video {
-            width: 100%;
-            height: auto;
-            object-fit: contain; 
-            display: block;
-        }
+        .video-container { position: relative; width: 100%; height: auto; background-color: #8B8B8B; display: flex; align-items: center; justify-content: center; z-index: 1; overflow: hidden; }
+        .video-container video { width: 100%; height: auto; object-fit: contain; display: block; }
         
         /* --- LƯỚI SẢN PHẨM --- */
-        .product-section {
-            padding: 60px 30px;
-            background: #8B8B8B;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .product-card {
-            position: relative;
-            display: block;
-            cursor: pointer;
-        }
-
-        .img-box {
-            width: 100%;
-            aspect-ratio: 3/4;
-            background: #111;
-            margin-bottom: 15px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .product-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            display: block;
-        }
-
-        .badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #fff;
-            color: #000;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 4px 8px;
-            z-index: 5;
-        }
-
-        .product-info h3 {
-            font-size: 14px;
-            font-weight: 500; 
-            margin-bottom: 5px;
-            color: #fff;
-        }
-
-        .product-info .price {
-            font-size: 14px;
-            color: #fff; 
-            font-weight: 300;
-            margin-bottom: 15px;
-        }
-
-        .sizes {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .size-box {
-            border: 1px solid #fff; 
-            padding: 5px 8px;
-            font-size: 10px;
-            color: #fff; 
-        }
+        .product-section { padding: 60px 30px; background: #8B8B8B; }
+        .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .product-card { position: relative; display: block; cursor: pointer; }
+        .img-box { width: 100%; aspect-ratio: 3/4; background: #111; margin-bottom: 15px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .badge { position: absolute; top: 10px; left: 10px; background: #fff; color: #000; font-size: 10px; font-weight: 600; padding: 4px 8px; z-index: 5; }
+        .product-info h3 { font-size: 14px; font-weight: 500; margin-bottom: 5px; color: #fff; }
+        .product-info .price { font-size: 14px; color: #fff; font-weight: 300; margin-bottom: 15px; }
+        .sizes { display: flex; gap: 5px; flex-wrap: wrap; }
+        .size-box { border: 1px solid #fff; padding: 5px 8px; font-size: 10px; color: #fff; }
 
         /* --- FOOTER --- */
-        .site-footer {
-            background-color: #8B8B8B;
-            color: #fff;
-            padding: 100px 5% 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-top: 1px solid #1a1a1a;
-        }
+        .site-footer { background-color: #8B8B8B; color: #fff; padding: 100px 5% 30px; display: flex; flex-direction: column; align-items: center; border-top: 1px solid #1a1a1a; }
+        .footer-logo { margin-bottom: 40px; text-align: center; }
+        .footer-logo-img { height: 90px; width: auto; display: block; margin: 0 auto; }
+        .footer-socials { display: flex; flex-direction: row; justify-content: center; gap: 50px; margin-bottom: 80px; width: 100%; }
+        .footer-socials a { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: 2px; transition: color 0.3s ease; color: #fff; }
+        .footer-socials a:hover { color: #aaa; }
+        .footer-copyright { font-size: 9.5px; font-weight: 300; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
 
-        .footer-logo {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .footer-logo-img {
-            height: 90px;
-            width: auto;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .footer-socials {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            gap: 50px;
-            margin-bottom: 80px;
-            width: 100%;
-        }
-
-        .footer-socials a {
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            font-weight: 500; 
-            letter-spacing: 2px;
-            transition: color 0.3s ease;
-            color: #fff;
-        }
-
-        .footer-socials a:hover {
-            color: #aaa;
-        }
-
-        .footer-copyright {
-            font-size: 9.5px; 
-            font-weight: 300;
-            color: #fff; 
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* --- GIAO DIỆN ĐIỆN THOẠI ĐỒNG BỘ --- */
+        /* --- RESPONSIVE ĐIỆN THOẠI --- */
         @media (max-width: 768px) {
-            header { 
-                padding: 0 20px; 
-                height: 60px; 
-                margin-bottom: -60px; 
-            }
-            
+            header { padding: 0 20px; height: 60px; margin-bottom: -60px; }
             .header-logo-img { height: 24px; }
-            
             .slide-menu-container { max-width: 100%; }
-
             .product-section { padding: 40px 15px; }
             .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .img-box { margin-bottom: 10px; }
             .product-info h3 { font-size: 11px; } 
             .product-info .price { font-size: 12px; }
             .size-box { padding: 3px 5px; font-size: 9px; }
-
             .site-footer { padding: 60px 5% 20px; }
-            
             .footer-logo-img { height: 50px; }
             .footer-logo { margin-bottom: 30px; }
-            
-            .footer-socials { 
-                flex-direction: row; 
-                gap: 15px; 
-                margin-bottom: 60px; 
-                flex-wrap: nowrap;
-            }
-            .footer-socials a {
-                font-size: 12px; 
-                letter-spacing: 1px;
-            }
+            .footer-socials { flex-direction: row; gap: 15px; margin-bottom: 60px; flex-wrap: nowrap; }
+            .footer-socials a { font-size: 12px; letter-spacing: 1px; }
+            .cart-drawer { width: 85%; }
         }
     </style>
 </head>
 <body>
 
     <!-- KHU VỰC MENU TRƯỢT (OFF-CANVAS) -->
-    
     <div class="menu-overlay" id="menuOverlay"></div>
-
     <div class="slide-menu-container" id="slideMenu">
-        
-        <div class="close-menu-btn" id="closeMenuBtn">
-            <svg viewBox="0 0 24 24" fill="none">
-                <path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-
+        <div class="close-menu-btn" id="closeMenuBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="menu-slider">
-            
-            <!-- PANEL 1: MENU CHÍNH -->
             <div class="menu-panel" id="mainMenuPanel">
                 <a href="#">HOME</a>
-                <a href="#" id="openShopMenuBtn">
-                    SHOP
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
+                <a href="#" id="openShopMenuBtn">SHOP <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                 <a href="#">ABOUT</a>
             </div>
-
-            <!-- PANEL 2: MENU SHOP (SUB-MENU) -->
             <div class="menu-panel" id="shopMenuPanel">
-                <div class="sub-menu-header" id="backToMainMenuBtn">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    Shop
-                </div>
-                
-                <a href="#">SHOP ALL</a>
-                <a href="#">JACKETS</a>
-                <a href="#">TOP</a>
-                <a href="#">BOTTOM</a>
-                <a href="#">ACCESSORIES</a>
-                
+                <div class="sub-menu-header" id="backToMainMenuBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg> Shop</div>
+                <a href="#">SHOP ALL</a><a href="#">JACKETS</a><a href="#">TOP</a><a href="#">BOTTOM</a><a href="#">ACCESSORIES</a>
                 <div class="menu-divider"></div>
             </div>
-
         </div>
     </div>
 
-    <!-- Khu vực Header -->
-    <header>
-        
-        <div class="nav-left">
-            <div class="hamburger-icon" id="openMenuBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
+    <!-- KHU VỰC GIỎ HÀNG TRƯỢT TỪ PHẢI (CART) -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h2>Giỏ hàng</h2>
+            <div class="close-cart-btn" id="closeCartBtn">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
         </div>
-
-        <div class="nav-center">
-            <a href="index.html" style="display:flex; align-items:center;">
-                <img src="logo.png" alt="DSA" class="header-logo-img">
-            </a>
+        <div class="cart-table-header" id="cartTableHeader">
+            <span>Sản phẩm</span><span>Tổng cộng</span>
         </div>
+        <div class="cart-body" id="cartBody"></div>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-subtotal"><span>Tạm tính</span><span id="cartSubtotal">0 VND</span></div>
+            <p class="cart-note">Thuế, Giảm giá và Phí vận chuyển sẽ được tính lúc thanh toán.</p>
+            <button class="checkout-btn">THANH TOÁN</button>
+        </div>
+    </div>
 
+    <!-- KHU VỰC HEADER -->
+    <header>
+        <div class="nav-left">
+            <div class="hamburger-icon" id="openMenuBtn"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        </div>
+        <div class="nav-center"><a href="index.html" style="display:flex; align-items:center;"><img src="logo.png" alt="DSA" class="header-logo-img"></a></div>
         <div class="nav-right">
-            <a href="#" class="cart-link">
-                <svg class="cart-icon" viewBox="0 0 24 24">
-                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-                </svg>
-                <span class="cart-badge">0</span>
+            <!-- Đã thêm ID cho nút và badge để JS bắt sự kiện -->
+            <a href="#" class="cart-link" id="openCartHeaderBtn">
+                <svg class="cart-icon" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <span class="cart-badge" id="cartBadgeCount">0</span>
             </a>
         </div>
-        
     </header>
 
-    <!-- KHU VỰC VIDEO LỚN -->
+    <!-- VIDEO LỚN -->
     <div class="video-container">
-        <!-- Đã trả về video.mp4 y hệt code gốc của bạn -->
         <video src="video.mp4" autoplay loop muted playsinline class="hero-video"></video>
     </div>
 
-  <!-- LƯỚI SẢN PHẨM -->
+    <!-- LƯỚI SẢN PHẨM -->
     <section class="product-section">
         <div class="product-grid">
-            
             <a href="product-detail.html" class="product-card">
                 <span class="badge">NEW</span>
                 <div class="img-box">
-                    <!-- Đổi tên file thành chữ thường hoàn toàn, không có khoảng trắng -->
                     <img src="HDZ001.jpg" alt="The Hoodie Zip" class="product-img">
                 </div>
                 <div class="product-info">
@@ -562,81 +227,115 @@
                     </div>
                 </div>
             </a>
-            
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="site-footer">
-        
-        <div class="footer-logo">
-            <img src="logo.png" alt="DSA" class="footer-logo-img">
-        </div>
-        
-        <div class="footer-socials">
-            <a href="#">FACEBOOK</a>
-            <a href="#">INSTAGRAM</a>
-            <a href="#">TIKTOK</a>
-        </div>
-        
-        <div class="footer-copyright">
-            COPY RIGHT © 2026 DSA
-        </div>
+        <div class="footer-logo"><img src="logo.png" alt="DSA" class="footer-logo-img"></div>
+        <div class="footer-socials"><a href="#">FACEBOOK</a><a href="#">INSTAGRAM</a><a href="#">TIKTOK</a></div>
+        <div class="footer-copyright">COPY RIGHT © 2026 DSA</div>
     </footer>
 
-    <!-- SCRIPT ĐIỀU KHIỂN LOGIC MENU TRƯỢT MƯỢT MÀ -->
+    <!-- SCRIPT ĐIỀU KHIỂN -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const openMenuBtn = document.getElementById('openMenuBtn');
-            const closeMenuBtn = document.getElementById('closeMenuBtn');
-            const menuOverlay = document.getElementById('menuOverlay');
-            const slideMenu = document.getElementById('slideMenu');
+            // === MENU TRƯỢT & ĐỔI MÀU HEADER ===
+            const openMenuBtn = document.getElementById('openMenuBtn'), closeMenuBtn = document.getElementById('closeMenuBtn');
+            const menuOverlay = document.getElementById('menuOverlay'), slideMenu = document.getElementById('slideMenu');
+            const openShopMenuBtn = document.getElementById('openShopMenuBtn'), backToMainMenuBtn = document.getElementById('backToMainMenuBtn');
             
-            const openShopMenuBtn = document.getElementById('openShopMenuBtn');
-            const backToMainMenuBtn = document.getElementById('backToMainMenuBtn');
-
-            function openMenu() {
-                menuOverlay.classList.add('active');
-                slideMenu.classList.add('active');
-            }
-
-            function closeMenu() {
-                menuOverlay.classList.remove('active');
-                slideMenu.classList.remove('active');
-                
-                setTimeout(() => {
-                    slideMenu.classList.remove('show-sub');
-                }, 400);
-            }
-
-            openMenuBtn.addEventListener('click', openMenu);
-            closeMenuBtn.addEventListener('click', closeMenu);
-            menuOverlay.addEventListener('click', closeMenu); 
-
-            openShopMenuBtn.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                slideMenu.classList.add('show-sub');
-            });
-
-            backToMainMenuBtn.addEventListener('click', function() {
-                slideMenu.classList.remove('show-sub');
-            });
-
-            // --- Logic đổi màu Header khi cuộn qua Video ---
+            function closeMenu() { menuOverlay.classList.remove('active'); slideMenu.classList.remove('active'); setTimeout(() => { slideMenu.classList.remove('show-sub'); }, 400); }
+            openMenuBtn.addEventListener('click', () => { menuOverlay.classList.add('active'); slideMenu.classList.add('active'); });
+            closeMenuBtn.addEventListener('click', closeMenu); menuOverlay.addEventListener('click', closeMenu); 
+            openShopMenuBtn.addEventListener('click', (e) => { e.preventDefault(); slideMenu.classList.add('show-sub'); });
+            backToMainMenuBtn.addEventListener('click', () => { slideMenu.classList.remove('show-sub'); });
+            
             const header = document.querySelector('header');
             const videoContainer = document.querySelector('.video-container');
-
             window.addEventListener('scroll', function() {
                 const videoHeight = videoContainer.offsetHeight;
-                
-                if (window.scrollY > videoHeight - 70) {
-                    header.classList.add('header-scrolled');
-                } else {
-                    header.classList.remove('header-scrolled');
-                }
+                if (window.scrollY > videoHeight - 70) { header.classList.add('header-scrolled'); } 
+                else { header.classList.remove('header-scrolled'); }
             });
+
+            // === GIỎ HÀNG (CART & LOCALSTORAGE) ĐỒNG BỘ ===
+            let cart = JSON.parse(localStorage.getItem('dsa_cart')) || [];
+            
+            const cartOverlay = document.getElementById('cartOverlay'), cartDrawer = document.getElementById('cartDrawer');
+            const openCartHeaderBtn = document.getElementById('openCartHeaderBtn'), closeCartBtn = document.getElementById('closeCartBtn');
+            const cartBody = document.getElementById('cartBody'), cartSubtotal = document.getElementById('cartSubtotal'), cartBadgeCount = document.getElementById('cartBadgeCount');
+            const cartTableHeader = document.getElementById('cartTableHeader'), cartFooter = document.getElementById('cartFooter');
+
+            const formatPrice = (price) => { return new Intl.NumberFormat('vi-VN').format(price) + ' VND'; }
+
+            function renderCart() {
+                cartBody.innerHTML = '';
+                let totalQty = 0, totalPrice = 0;
+
+                if (cart.length === 0) {
+                    cartTableHeader.style.display = 'none';
+                    cartFooter.style.display = 'none';
+                    cartBody.innerHTML = `
+                        <div class="empty-cart-container">
+                            <h3>Giỏ hàng của bạn đang trống</h3>
+                            <button class="continue-shopping-btn" id="continueShoppingBtn">TIẾP TỤC MUA SẮM</button>
+                        </div>
+                    `;
+                    cartBadgeCount.textContent = '0';
+                    document.getElementById('continueShoppingBtn').addEventListener('click', closeCartDrawer);
+                    return;
+                }
+
+                cartTableHeader.style.display = 'flex';
+                cartFooter.style.display = 'block';
+
+                cart.forEach((item, index) => {
+                    totalQty += item.qty; totalPrice += item.price * item.qty;
+                    const itemHTML = `
+                        <div class="cart-item">
+                            <div class="cart-item-img"><img src="${item.img}" alt="${item.name}"></div>
+                            <div class="cart-item-info">
+                                <div class="cart-item-top">
+                                    <h4 class="cart-item-title">${item.name}</h4>
+                                    <span class="cart-item-price-total">${formatPrice(item.price * item.qty)}</span>
+                                </div>
+                                <div class="cart-item-size">Size: ${item.size}</div>
+                                <div class="cart-item-actions">
+                                    <div class="qty-selector">
+                                        <button class="qty-btn minus" data-index="${index}">-</button>
+                                        <input type="text" class="qty-input" value="${item.qty}" readonly>
+                                        <button class="qty-btn plus" data-index="${index}">+</button>
+                                    </div>
+                                    <button class="remove-btn" data-index="${index}"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    cartBody.insertAdjacentHTML('beforeend', itemHTML);
+                });
+                
+                cartSubtotal.textContent = formatPrice(totalPrice);
+                cartBadgeCount.textContent = totalQty;
+                attachCartEvents();
+            }
+
+            function updateCartStorage() { localStorage.setItem('dsa_cart', JSON.stringify(cart)); renderCart(); }
+
+            function attachCartEvents() {
+                document.querySelectorAll('.qty-btn.plus').forEach(btn => { btn.addEventListener('click', (e) => { const index = e.target.getAttribute('data-index'); cart[index].qty += 1; updateCartStorage(); }); });
+                document.querySelectorAll('.qty-btn.minus').forEach(btn => { btn.addEventListener('click', (e) => { const index = e.target.getAttribute('data-index'); if (cart[index].qty > 1) { cart[index].qty -= 1; updateCartStorage(); } }); });
+                document.querySelectorAll('.remove-btn').forEach(btn => { btn.addEventListener('click', (e) => { const index = e.target.closest('.remove-btn').getAttribute('data-index'); cart.splice(index, 1); updateCartStorage(); }); });
+            }
+
+            function openCartDrawer() { cartOverlay.classList.add('active'); cartDrawer.classList.add('active'); }
+            function closeCartDrawer() { cartOverlay.classList.remove('active'); cartDrawer.classList.remove('active'); }
+
+            openCartHeaderBtn.addEventListener('click', (e) => { e.preventDefault(); openCartDrawer(); });
+            closeCartBtn.addEventListener('click', closeCartDrawer); cartOverlay.addEventListener('click', closeCartDrawer);
+
+            renderCart(); // Gọi ngay khi load web để update số lượng trên giỏ hàng
         });
     </script>
-
 </body>
 </html>
