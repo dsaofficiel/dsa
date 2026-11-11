@@ -101,7 +101,7 @@
             position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100vh; z-index: 999;
             background-color: #fff; color: #000; display: flex; flex-direction: column;
             transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-            text-transform: none; /* Trả về font chữ bình thường cho dễ đọc */
+            text-transform: none;
         }
         .cart-drawer.active { transform: translateX(0); }
 
@@ -123,11 +123,13 @@
         .cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
         
         .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .cart-item-top { display: flex; justify-content: space-between; align-items: flex-start; }
-        .cart-item-title { font-size: 15px; font-weight: 500; margin-bottom: 5px; }
-        .cart-item-price-unit { font-size: 14px; color: #555; margin-bottom: 5px; }
-        .cart-item-size { font-size: 13px; color: #888; margin-bottom: 15px; }
-        .cart-item-price-total { font-size: 15px; font-weight: 400; }
+        
+        /* Chỉnh sửa căn dòng Tên và Giá nằm ngang, không rớt dòng */
+        .cart-item-top { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 6px; }
+        .cart-item-title { font-size: 13px; font-weight: 600; white-space: nowrap; margin: 0; }
+        .cart-item-price-total { font-size: 13px; font-weight: 500; white-space: nowrap; margin-left: 15px; }
+        
+        .cart-item-size { font-size: 12px; color: #888; margin-bottom: 15px; }
 
         .cart-item-actions { display: flex; justify-content: space-between; align-items: center; }
         .qty-selector { display: flex; border: 1px solid #ddd; width: 100px; height: 36px; }
@@ -190,8 +192,6 @@
             flex: 6; display: flex; flex-direction: row; 
             overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; cursor: grab;
             -ms-overflow-style: none; scrollbar-width: none;
-            
-            /* TẠO VẠCH NGĂN CÁCH TRÙNG MÀU NỀN 2.5mm */
             gap: 2.5px;
             background-color: #8B8B8B; 
         }
@@ -212,13 +212,11 @@
         
         .pdp-size-title { font-size: 11px; letter-spacing: 1px; margin-bottom: 15px; color: rgba(255,255,255,0.8); }
 
-        /* Vùng bọc nút Size - Sẽ chớp đỏ nếu báo lỗi */
         .pdp-sizes-wrapper { 
             display: inline-flex; gap: 10px; margin-bottom: 20px; 
             border-radius: 4px; transition: all 0.3s ease; padding: 2px;
         }
 
-        /* Hiệu ứng nhấp nháy ửng hồng khi quên chọn size */
         @keyframes flash-pink {
             0%   { background-color: transparent; box-shadow: none; }
             50%  { background-color: rgba(255, 100, 100, 0.4); box-shadow: 0 0 12px rgba(255, 100, 100, 0.6); }
@@ -300,7 +298,7 @@
     <div class="cart-overlay" id="cartOverlay"></div>
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header">
-            <h2>Giỏ hàng của bạn</h2>
+            <h2>Giỏ hàng</h2>
             <div class="close-cart-btn" id="closeCartBtn">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
@@ -500,13 +498,10 @@
                             </div>
                             <div class="cart-item-info">
                                 <div class="cart-item-top">
-                                    <div>
-                                        <h4 class="cart-item-title">${item.name}</h4>
-                                        <p class="cart-item-price-unit">${formatPrice(item.price)}</p>
-                                        <p class="cart-item-size">Size: ${item.size}</p>
-                                    </div>
-                                    <div class="cart-item-price-total">${formatPrice(item.price * item.qty)}</div>
+                                    <h4 class="cart-item-title">${item.name}</h4>
+                                    <span class="cart-item-price-total">${formatPrice(item.price * item.qty)}</span>
                                 </div>
+                                <div class="cart-item-size">Size: ${item.size}</div>
                                 <div class="cart-item-actions">
                                     <div class="qty-selector">
                                         <button class="qty-btn minus" data-index="${index}">-</button>
@@ -526,7 +521,6 @@
                 cartSubtotal.textContent = formatPrice(totalPrice);
                 cartBadgeCount.textContent = totalQty;
                 
-                // Gắn sự kiện cho các nút + / - / Xóa
                 attachCartEvents();
             }
 
@@ -579,14 +573,12 @@
             // Xử lý khi nhấn THÊM VÀO GIỎ HÀNG
             addToCartBtn.addEventListener('click', () => {
                 if (!selectedSize) {
-                    // Nếu chưa chọn size -> Kích hoạt hiệu ứng chớp hồng
                     sizeWrapper.classList.remove('error-flash'); 
-                    void sizeWrapper.offsetWidth; // Reset animation
+                    void sizeWrapper.offsetWidth; 
                     sizeWrapper.classList.add('error-flash');
-                    return; // Chặn không cho thêm vào giỏ
+                    return; 
                 }
 
-                // Kiểm tra xem sản phẩm cùng Size đã có trong giỏ chưa
                 const existingItemIndex = cart.findIndex(item => item.size === selectedSize);
                 
                 if (existingItemIndex > -1) {
@@ -603,7 +595,7 @@
                 }
                 
                 updateCartStorage();
-                openCartDrawer(); // Mở trượt giỏ hàng ra báo thành công
+                openCartDrawer();
             });
 
             // Gọi render lần đầu khi web vừa tải xong
