@@ -74,10 +74,27 @@
         .close-cart-btn svg { width: 100%; height: 100%; stroke: #000; stroke-width: 1.2; }
         
         .cart-table-header { display: flex; justify-content: space-between; padding: 15px 30px; font-size: 11px; letter-spacing: 1px; color: #888; text-transform: uppercase; border-bottom: 1px solid #eee; }
-        .cart-body { flex: 1; overflow-y: auto; padding: 20px 30px; }
+       /* Bổ sung display flex cho cart-body để nó có thể ép content ra giữa */
+.cart-body { flex: 1; overflow-y: auto; padding: 20px 30px; display: flex; flex-direction: column; }
         
-        .empty-cart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding-top: 40px; }
-        .empty-cart-container h3 { font-size: 22px; font-weight: 400; margin-bottom: 30px; letter-spacing: 0.5px; }
+/* GIAO DIỆN GIỎ HÀNG TRỐNG (EMPTY STATE) */
+.empty-cart-container { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    text-align: center;      /* Căn giữa chữ theo chiều ngang */
+    margin-top: -20px;       /* Trừ hao một chút lề để nút cân đối tuyệt đối */
+}
+
+.empty-cart-container h3 { 
+    font-size: 22px; 
+    font-weight: 400; 
+    margin-bottom: 30px; 
+    letter-spacing: 0.5px; 
+    line-height: 1.4; /* Tạo khoảng cách giãn dòng nếu chữ rớt xuống 2 hàng */
+}
         .continue-shopping-btn { width: 100%; background: #000; color: #fff; border: none; padding: 18px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.3s; }
         .continue-shopping-btn:hover { background: #333; }
 
