@@ -25,32 +25,18 @@
             text-transform: uppercase;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
-        ul {
-            list-style: none;
-        }
-
-        /* --- HEADER --- */
+        /* =========================================
+           HEADER 
+        ========================================= */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px; 
-            position: fixed; 
-            width: 100%;
-            top: 0;
-            z-index: 998;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid transparent;
-            color: #fff;
-            transition: all 0.3s ease;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 40px; position: fixed; width: 100%; top: 0; z-index: 996;
+            height: 70px; background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid transparent; color: #fff; transition: all 0.3s ease;
         }
 
         header.header-scrolled {
@@ -58,13 +44,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .nav-left, .nav-center, .nav-right {
-            display: flex;
-            align-items: center;
-            flex: 1; 
-            height: 100%;
-        }
-
+        .nav-left, .nav-center, .nav-right { display: flex; align-items: center; flex: 1; height: 100%; }
         .nav-left { justify-content: flex-start; }
         .nav-center { justify-content: center; }
         .nav-right { justify-content: flex-end; }
@@ -79,15 +59,17 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* --- MENU TRƯỢT --- */
+        /* =========================================
+           MENU TRƯỢT TỪ TRÁI (SHOP MENU)
+        ========================================= */
         .hamburger-icon { width: 26px; height: 26px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; }
         .hamburger-icon svg { width: 100%; height: 100%; stroke: #fff; }
 
-        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 997; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
         .menu-overlay.active { opacity: 1; visibility: visible; }
 
         .slide-menu-container {
-            position: fixed; top: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 100%; max-width: 100%; height: 100vh; z-index: 998;
             background: linear-gradient(to right, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); overflow: hidden; 
@@ -96,89 +78,165 @@
 
         .close-menu-btn { position: absolute; top: 20px; left: 30px; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1001; }
         .close-menu-btn svg { width: 24px; height: 24px; stroke: #fff; stroke-width: 1; }
-
         .menu-slider { display: flex; width: 200%; height: 100%; padding-top: 80px; transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); }
         .slide-menu-container.show-sub .menu-slider { transform: translateX(-50%); }
-
         .menu-panel { width: 50%; height: 100%; padding: 0 30px 40px; display: flex; flex-direction: column; gap: 25px; overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none; }
         .menu-panel::-webkit-scrollbar { display: none; }
         .menu-panel a { font-size: 15px; font-weight: 300; color: #fff; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; padding: 10px 0; transition: color 0.2s, font-weight 0.2s; }
         .menu-panel a:hover { color: #ddd; font-weight: 400; }
         .menu-panel a svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 1; }
-
         .sub-menu-header { display: flex; align-items: center; font-size: 18px; font-weight: 300; color: #fff; text-transform: none; margin-bottom: 20px; cursor: pointer; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-top: -10px; transition: background 0.2s; }
         .sub-menu-header:hover { background: rgba(255,255,255,0.1); }
         .sub-menu-header svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 1; margin-right: 15px; }
         .menu-divider { width: 60%; height: 1px; background-color: rgba(255,255,255,0.2); margin-top: 30px; }
 
 
-        /* ========================================================
+        /* =========================================
+           GIỎ HÀNG TRƯỢT TỪ PHẢI (CART DRAWER)
+        ========================================= */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 998; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+        
+        .cart-drawer {
+            position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100vh; z-index: 999;
+            background-color: #fff; color: #000; display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            text-transform: none; /* Trả về font chữ bình thường cho dễ đọc */
+        }
+        .cart-drawer.active { transform: translateX(0); }
+
+        .cart-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; border-bottom: 1px solid #eee; }
+        .cart-header h2 { font-size: 22px; font-weight: 400; letter-spacing: 0.5px; }
+        .close-cart-btn { cursor: pointer; width: 24px; height: 24px; }
+        .close-cart-btn svg { width: 100%; height: 100%; stroke: #000; stroke-width: 1.2; }
+
+        .cart-table-header {
+            display: flex; justify-content: space-between; padding: 15px 30px;
+            font-size: 11px; letter-spacing: 1px; color: #888; text-transform: uppercase; border-bottom: 1px solid #eee;
+        }
+
+        .cart-body { flex: 1; overflow-y: auto; padding: 20px 30px; }
+        .empty-cart-msg { text-align: center; color: #888; margin-top: 40px; font-size: 14px; }
+        
+        .cart-item { display: flex; gap: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; margin-bottom: 20px; }
+        .cart-item-img { width: 90px; height: 110px; background: #f5f5f5; }
+        .cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .cart-item-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        .cart-item-title { font-size: 15px; font-weight: 500; margin-bottom: 5px; }
+        .cart-item-price-unit { font-size: 14px; color: #555; margin-bottom: 5px; }
+        .cart-item-size { font-size: 13px; color: #888; margin-bottom: 15px; }
+        .cart-item-price-total { font-size: 15px; font-weight: 400; }
+
+        .cart-item-actions { display: flex; justify-content: space-between; align-items: center; }
+        .qty-selector { display: flex; border: 1px solid #ddd; width: 100px; height: 36px; }
+        .qty-btn { flex: 1; background: transparent; border: none; font-size: 16px; cursor: pointer; }
+        .qty-input { flex: 1; width: 100%; border: none; text-align: center; font-size: 14px; font-family: 'Inter', sans-serif; pointer-events: none; }
+        
+        .remove-btn { cursor: pointer; background: transparent; border: none; }
+        .remove-btn svg { width: 18px; height: 18px; fill: #666; transition: fill 0.2s; }
+        .remove-btn:hover svg { fill: #000; }
+
+        .cart-footer { padding: 30px; border-top: 1px solid #eee; background: #fafafa; }
+        .cart-subtotal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .cart-subtotal span:first-child { font-size: 18px; font-weight: 400; }
+        .cart-subtotal span:last-child { font-size: 20px; font-weight: 500; }
+        .cart-note { font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.5; }
+        
+        .checkout-btn {
+            width: 100%; background: #000; color: #fff; border: none; padding: 18px;
+            font-size: 14px; font-weight: 500; letter-spacing: 1px; cursor: pointer;
+            transition: background 0.3s;
+        }
+        .checkout-btn:hover { background: #333; }
+
+
+        /* =========================================
+           POPUP BẢNG SIZE (SIZE CHART MODAL)
+        ========================================= */
+        .size-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(0,0,0,0.7); z-index: 1000; 
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+        }
+        .size-modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .size-modal-content {
+            background: #fff; width: 90%; max-width: 600px;
+            padding: 40px 20px 20px; position: relative; color: #000;
+            border-radius: 4px;
+        }
+        .close-size-modal {
+            position: absolute; top: 15px; right: 20px; cursor: pointer; width: 24px; height: 24px;
+        }
+        .close-size-modal svg { width: 100%; height: 100%; stroke: #000; stroke-width: 1.2; }
+        
+        .size-modal-content h2 { text-align: center; font-size: 20px; font-weight: 400; letter-spacing: 2px; margin-bottom: 20px; }
+        .size-modal-content img { width: 100%; height: auto; display: block; }
+
+
+        /* =========================================
            TRANG CHI TIẾT SẢN PHẨM 
-        ======================================================== */
+        ========================================= */
         .pdp-container {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 120px 40px 60px; 
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 50px;
+            display: flex; align-items: flex-start; justify-content: center;
+            padding: 120px 40px 60px; max-width: 1400px; margin: 0 auto; gap: 50px;
         }
 
-        /* --- BỘ PHẬN CHÍNH SỬA: SLIDER ẢNH KÉO NGANG --- */
+        /* SLIDER HÌNH ẢNH KÉO NGANG */
         .pdp-images {
-            flex: 6; 
-            display: flex;
-            flex-direction: row; /* Xếp ảnh theo hàng ngang */
-            overflow-x: auto; /* Cho phép cuộn ngang */
-            scroll-snap-type: x mandatory; /* Hút ảnh vừa khít màn hình */
-            scroll-behavior: smooth;
-            cursor: grab; /* Hiện biểu tượng bàn tay kéo thả */
+            flex: 6; display: flex; flex-direction: row; 
+            overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; cursor: grab;
+            -ms-overflow-style: none; scrollbar-width: none;
             
-            /* Ẩn thanh cuộn mặc định cho mượt */
-            -ms-overflow-style: none;  
-            scrollbar-width: none;  
+            /* TẠO VẠCH NGĂN CÁCH TRÙNG MÀU NỀN 2.5mm */
+            gap: 2.5px;
+            background-color: #8B8B8B; 
         }
-
-        .pdp-images::-webkit-scrollbar {
-            display: none; 
-        }
-
-        .pdp-images:active {
-            cursor: grabbing; /* Đổi biểu tượng khi đang kéo */
-        }
+        .pdp-images::-webkit-scrollbar { display: none; }
+        .pdp-images:active { cursor: grabbing; }
         
         .pdp-images img {
-            flex: 0 0 100%; /* Ép mỗi ảnh chiếm trọn 1 khung 100% */
-            min-width: 100%;
-            height: auto;
-            aspect-ratio: 3/4; /* Giữ tỷ lệ khung hình không bị méo */
-            object-fit: cover;
-            display: block;
-            background: #111; 
-            scroll-snap-align: start; /* Điểm khóa ảnh khi kéo xong */
-            pointer-events: none; /* Khóa hành động kéo thả file ảnh mặc định của trình duyệt */
+            flex: 0 0 100%; min-width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover;
+            display: block; background: #111; scroll-snap-align: start; pointer-events: none;
         }
 
-        /* --- THÔNG TIN SẢN PHẨM --- */
-        .pdp-info {
-            flex: 4; 
-            position: sticky; 
-            top: 120px; 
-            padding-right: 20px;
-        }
+        /* THÔNG TIN SẢN PHẨM */
+        .pdp-info { flex: 4; position: sticky; top: 120px; padding-right: 20px; }
 
         .pdp-breadcrumbs { font-size: 10px; letter-spacing: 1px; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
         .pdp-title { font-size: 26px; font-weight: 500; margin-bottom: 15px; letter-spacing: 1px; }
         .pdp-price { font-size: 18px; font-weight: 300; margin-bottom: 40px; color: #fff; }
+        
         .pdp-size-title { font-size: 11px; letter-spacing: 1px; margin-bottom: 15px; color: rgba(255,255,255,0.8); }
 
-        .pdp-sizes-wrapper { display: flex; gap: 10px; margin-bottom: 40px; }
+        /* Vùng bọc nút Size - Sẽ chớp đỏ nếu báo lỗi */
+        .pdp-sizes-wrapper { 
+            display: inline-flex; gap: 10px; margin-bottom: 20px; 
+            border-radius: 4px; transition: all 0.3s ease; padding: 2px;
+        }
+
+        /* Hiệu ứng nhấp nháy ửng hồng khi quên chọn size */
+        @keyframes flash-pink {
+            0%   { background-color: transparent; box-shadow: none; }
+            50%  { background-color: rgba(255, 100, 100, 0.4); box-shadow: 0 0 12px rgba(255, 100, 100, 0.6); }
+            100% { background-color: transparent; box-shadow: none; }
+        }
+        .pdp-sizes-wrapper.error-flash { animation: flash-pink 0.8s ease; }
+
         .pdp-size-btn {
             background: transparent; border: 1px solid #fff; color: #fff; padding: 12px 24px;
             font-size: 12px; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
         }
         .pdp-size-btn:hover, .pdp-size-btn.active { background: #fff; color: #000; }
+
+        .size-chart-link { 
+            font-size: 11px; font-weight: 300; letter-spacing: 1px; text-decoration: underline; 
+            cursor: pointer; display: inline-block; margin-bottom: 40px; color: #ccc; transition: color 0.3s;
+        }
+        .size-chart-link:hover { color: #fff; }
 
         .pdp-add-to-cart {
             width: 100%; background: #fff; color: #000; border: none; padding: 18px; font-size: 13px;
@@ -189,7 +247,9 @@
         .pdp-description { font-size: 13px; line-height: 1.8; font-weight: 300; color: rgba(255,255,255,0.8); border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; }
         .pdp-description p { margin-bottom: 15px; }
 
-        /* --- FOOTER --- */
+        /* =========================================
+           FOOTER 
+        ========================================= */
         .site-footer { background-color: #8B8B8B; color: #fff; padding: 100px 5% 30px; display: flex; flex-direction: column; align-items: center; border-top: 1px solid rgba(255,255,255,0.2); }
         .footer-logo { margin-bottom: 40px; text-align: center; }
         .footer-logo-img { height: 90px; width: auto; display: block; margin: 0 auto; }
@@ -198,34 +258,29 @@
         .footer-socials a:hover { color: #aaa; }
         .footer-copyright { font-size: 9.5px; font-weight: 300; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* --- RESPONSIVE CHO ĐIỆN THOẠI --- */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             header { padding: 0 20px; height: 60px; }
             .header-logo-img { height: 24px; }
             .pdp-container { flex-direction: column; padding: 80px 20px 40px; gap: 30px; }
-            
-            /* Điện thoại vuốt ngang nên vẫn giữ cấu trúc Slider, xóa các giới hạn tỷ lệ */
             .pdp-images { width: 100%; } 
-
             .pdp-info { position: relative; top: 0; width: 100%; padding-right: 0; }
             .pdp-title { font-size: 22px; }
-            
             .site-footer { padding: 60px 5% 20px; }
             .footer-logo-img { height: 50px; }
             .footer-socials { flex-direction: row; gap: 15px; margin-bottom: 60px; flex-wrap: nowrap; }
             .footer-socials a { font-size: 12px; }
+            .cart-drawer { width: 85%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- KHU VỰC MENU TRƯỢT (OFF-CANVAS) -->
+    <!-- KHU VỰC MENU TRƯỢT TỪ TRÁI (SHOP) -->
     <div class="menu-overlay" id="menuOverlay"></div>
     <div class="slide-menu-container" id="slideMenu">
         <div class="close-menu-btn" id="closeMenuBtn">
-            <svg viewBox="0 0 24 24" fill="none">
-                <path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="menu-slider">
             <div class="menu-panel" id="mainMenuPanel">
@@ -234,41 +289,65 @@
                 <a href="#">ABOUT</a>
             </div>
             <div class="menu-panel" id="shopMenuPanel">
-                <div class="sub-menu-header" id="backToMainMenuBtn">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg> Shop
-                </div>
-                <a href="#">SHOP ALL</a>
-                <a href="#">JACKETS</a>
-                <a href="#">TOP</a>
-                <a href="#">BOTTOM</a>
-                <a href="#">ACCESSORIES</a>
+                <div class="sub-menu-header" id="backToMainMenuBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg> Shop</div>
+                <a href="#">SHOP ALL</a><a href="#">JACKETS</a><a href="#">TOP</a><a href="#">BOTTOM</a><a href="#">ACCESSORIES</a>
                 <div class="menu-divider"></div>
             </div>
         </div>
     </div>
 
+    <!-- KHU VỰC GIỎ HÀNG TRƯỢT TỪ PHẢI (CART) -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h2>Giỏ hàng của bạn</h2>
+            <div class="close-cart-btn" id="closeCartBtn">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+        </div>
+        <div class="cart-table-header">
+            <span>Sản phẩm</span>
+            <span>Tổng cộng</span>
+        </div>
+        
+        <div class="cart-body" id="cartBody">
+            <!-- Sản phẩm sẽ được đổ vào đây bằng Javascript -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-subtotal">
+                <span>Tạm tính</span>
+                <span id="cartSubtotal">0 VND</span>
+            </div>
+            <p class="cart-note">Thuế, Giảm giá và Phí vận chuyển sẽ được tính lúc thanh toán.</p>
+            <button class="checkout-btn">THANH TOÁN</button>
+        </div>
+    </div>
+
+    <!-- POPUP BẢNG SIZE -->
+    <div class="size-modal-overlay" id="sizeModal">
+        <div class="size-modal-content">
+            <div class="close-size-modal" id="closeSizeModal">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h2>SIZE GUIDE</h2>
+            <img src="sizechart-HDZ001.jpg" alt="Size Chart">
+        </div>
+    </div>
+
+
     <!-- KHU VỰC HEADER -->
     <header>
         <div class="nav-left">
-            <div class="hamburger-icon" id="openMenuBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </div>
+            <div class="hamburger-icon" id="openMenuBtn"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
         </div>
         <div class="nav-center">
-            <a href="index.html" style="display:flex; align-items:center;">
-                <img src="logo.png" alt="DSA" class="header-logo-img">
-            </a>
+            <a href="index.html" style="display:flex; align-items:center;"><img src="logo.png" alt="DSA" class="header-logo-img"></a>
         </div>
         <div class="nav-right">
-            <a href="#" class="cart-link">
-                <svg class="cart-icon" viewBox="0 0 24 24">
-                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-                </svg>
-                <span class="cart-badge">0</span>
+            <a href="#" class="cart-link" id="openCartHeaderBtn">
+                <svg class="cart-icon" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <span class="cart-badge" id="cartBadgeCount">0</span>
             </a>
         </div>
     </header>
@@ -276,7 +355,7 @@
     <!-- NỘI DUNG CHI TIẾT SẢN PHẨM -->
     <main class="pdp-container">
         
-        <!-- Cột trái: SLIDER HÌNH ẢNH KÉO NGANG -->
+        <!-- Cột trái: SLIDER HÌNH ẢNH CÓ VẠCH NGĂN CÁCH -->
         <div class="pdp-images" id="imageSlider">
             <img src="HDZ001.jpg" alt="The Hoodie Zip View 1">
             <img src="HDZ001-2.jpg" alt="The Hoodie Zip View 2">
@@ -285,19 +364,23 @@
             <img src="HDZ001-5.jpg" alt="The Hoodie Zip View 5">
         </div>
 
-        <!-- Cột phải: Thông tin cố định (Sticky) -->
+        <!-- Cột phải: Thông tin -->
         <div class="pdp-info">
             <div class="pdp-breadcrumbs">HOME / TOP / THE HOODIE ZIP</div>
             <h1 class="pdp-title">THE HOODIE ZIP</h1>
             <p class="pdp-price">315,000 VND</p>
 
-            <div class="pdp-size-title">CHỌN SIZE</div>
-            <div class="pdp-sizes-wrapper">
-                <button class="pdp-size-btn">M</button>
-                <button class="pdp-size-btn">L</button>
+            <div class="pdp-size-title">SIZE</div>
+            <!-- Vùng size (id="sizeWrapper") để bắt hiệu ứng chớp lỗi -->
+            <div class="pdp-sizes-wrapper" id="sizeWrapper">
+                <button class="pdp-size-btn" data-size="M">M</button>
+                <button class="pdp-size-btn" data-size="L">L</button>
             </div>
+            
+            <br>
+            <div class="size-chart-link" id="openSizeChartLink">SIZE CHART</div>
 
-            <button class="pdp-add-to-cart">THÊM VÀO GIỎ HÀNG</button>
+            <button class="pdp-add-to-cart" id="addToCartBtn">THÊM VÀO GIỎ HÀNG</button>
 
             <!-- Phần mô tả sản phẩm -->
             <div class="pdp-description">
@@ -314,23 +397,15 @@
 
     <!-- FOOTER -->
     <footer class="site-footer">
-        <div class="footer-logo">
-            <img src="logo.png" alt="DSA" class="footer-logo-img">
-        </div>
-        <div class="footer-socials">
-            <a href="#">FACEBOOK</a>
-            <a href="#">INSTAGRAM</a>
-            <a href="#">TIKTOK</a>
-        </div>
-        <div class="footer-copyright">
-            COPY RIGHT © 2026 DSA
-        </div>
+        <div class="footer-logo"><img src="logo.png" alt="DSA" class="footer-logo-img"></div>
+        <div class="footer-socials"><a href="#">FACEBOOK</a><a href="#">INSTAGRAM</a><a href="#">TIKTOK</a></div>
+        <div class="footer-copyright">COPY RIGHT © 2026 DSA</div>
     </footer>
 
-    <!-- SCRIPT GIAO DIỆN -->
+    <!-- LOGIC ĐIỀU KHIỂN -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Script Menu Trượt
+            // === 1. LOGIC MENU TRƯỢT (SHOP) ===
             const openMenuBtn = document.getElementById('openMenuBtn');
             const closeMenuBtn = document.getElementById('closeMenuBtn');
             const menuOverlay = document.getElementById('menuOverlay');
@@ -338,67 +413,201 @@
             const openShopMenuBtn = document.getElementById('openShopMenuBtn');
             const backToMainMenuBtn = document.getElementById('backToMainMenuBtn');
 
-            function openMenu() { menuOverlay.classList.add('active'); slideMenu.classList.add('active'); }
             function closeMenu() { 
                 menuOverlay.classList.remove('active'); slideMenu.classList.remove('active'); 
                 setTimeout(() => { slideMenu.classList.remove('show-sub'); }, 400); 
             }
-
-            openMenuBtn.addEventListener('click', openMenu);
+            openMenuBtn.addEventListener('click', () => { menuOverlay.classList.add('active'); slideMenu.classList.add('active'); });
             closeMenuBtn.addEventListener('click', closeMenu);
             menuOverlay.addEventListener('click', closeMenu); 
+            openShopMenuBtn.addEventListener('click', (e) => { e.preventDefault(); slideMenu.classList.add('show-sub'); });
+            backToMainMenuBtn.addEventListener('click', () => { slideMenu.classList.remove('show-sub'); });
 
-            openShopMenuBtn.addEventListener('click', function(e) { e.preventDefault(); slideMenu.classList.add('show-sub'); });
-            backToMainMenuBtn.addEventListener('click', function() { slideMenu.classList.remove('show-sub'); });
-
-            // Đổi màu Header khi cuộn trang
+            // === Đổi màu Header ===
             const header = document.querySelector('header');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('header-scrolled');
-                } else {
-                    header.classList.remove('header-scrolled');
-                }
-            });
+            window.addEventListener('scroll', () => { window.scrollY > 50 ? header.classList.add('header-scrolled') : header.classList.remove('header-scrolled'); });
 
-            // Chọn Size (Hiệu ứng đổi màu nút khi click)
+            // === 2. LOGIC KÉO THẢ ẢNH ===
+            const slider = document.getElementById('imageSlider');
+            let isDown = false; let startX; let scrollLeft;
+            slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
+            slider.addEventListener('mouseleave', () => { isDown = false; });
+            slider.addEventListener('mouseup', () => { isDown = false; });
+            slider.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 1.5; slider.scrollLeft = scrollLeft - walk; });
+
+            // === 3. LOGIC SIZE CHART (BẢNG SIZE) ===
+            const sizeModal = document.getElementById('sizeModal');
+            const openSizeChartLink = document.getElementById('openSizeChartLink');
+            const closeSizeModal = document.getElementById('closeSizeModal');
+
+            openSizeChartLink.addEventListener('click', () => { sizeModal.classList.add('active'); });
+            closeSizeModal.addEventListener('click', () => { sizeModal.classList.remove('active'); });
+            sizeModal.addEventListener('click', (e) => { if(e.target === sizeModal) sizeModal.classList.remove('active'); });
+
+
+            // === 4. LOGIC CHỌN SIZE & GIỎ HÀNG (CART) ===
             const sizeBtns = document.querySelectorAll('.pdp-size-btn');
+            const sizeWrapper = document.getElementById('sizeWrapper');
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            let selectedSize = null;
+
+            // Xử lý nút chọn Size
             sizeBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     sizeBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
+                    selectedSize = this.getAttribute('data-size');
+                    // Xóa class chớp hồng nếu người dùng đã chọn size
+                    sizeWrapper.classList.remove('error-flash'); 
                 });
             });
 
-            // ==========================================
-            // LOGIC KÉO THẢ MƯỢT MÀ CHO SLIDER HÌNH ẢNH
-            // ==========================================
-            const slider = document.getElementById('imageSlider');
-            let isDown = false;
-            let startX;
-            let scrollLeft;
+            // Khởi tạo Dữ liệu Giỏ Hàng từ bộ nhớ (sessionStorage)
+            let cart = JSON.parse(sessionStorage.getItem('dsa_cart')) || [];
+            
+            const cartOverlay = document.getElementById('cartOverlay');
+            const cartDrawer = document.getElementById('cartDrawer');
+            const openCartHeaderBtn = document.getElementById('openCartHeaderBtn');
+            const closeCartBtn = document.getElementById('closeCartBtn');
+            const cartBody = document.getElementById('cartBody');
+            const cartSubtotal = document.getElementById('cartSubtotal');
+            const cartBadgeCount = document.getElementById('cartBadgeCount');
 
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
+            // Định dạng tiền tệ
+            const formatPrice = (price) => { return new Intl.NumberFormat('vi-VN').format(price) + ' VND'; }
+
+            // Cập nhật giao diện giỏ hàng
+            function renderCart() {
+                cartBody.innerHTML = '';
+                let totalQty = 0;
+                let totalPrice = 0;
+
+                if (cart.length === 0) {
+                    cartBody.innerHTML = '<p class="empty-cart-msg">Giỏ hàng của bạn đang trống.</p>';
+                    cartSubtotal.textContent = '0 VND';
+                    cartBadgeCount.textContent = '0';
+                    return;
+                }
+
+                cart.forEach((item, index) => {
+                    totalQty += item.qty;
+                    totalPrice += item.price * item.qty;
+                    
+                    const itemHTML = `
+                        <div class="cart-item">
+                            <div class="cart-item-img">
+                                <img src="${item.img}" alt="${item.name}">
+                            </div>
+                            <div class="cart-item-info">
+                                <div class="cart-item-top">
+                                    <div>
+                                        <h4 class="cart-item-title">${item.name}</h4>
+                                        <p class="cart-item-price-unit">${formatPrice(item.price)}</p>
+                                        <p class="cart-item-size">Size: ${item.size}</p>
+                                    </div>
+                                    <div class="cart-item-price-total">${formatPrice(item.price * item.qty)}</div>
+                                </div>
+                                <div class="cart-item-actions">
+                                    <div class="qty-selector">
+                                        <button class="qty-btn minus" data-index="${index}">-</button>
+                                        <input type="text" class="qty-input" value="${item.qty}" readonly>
+                                        <button class="qty-btn plus" data-index="${index}">+</button>
+                                    </div>
+                                    <button class="remove-btn" data-index="${index}">
+                                        <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    cartBody.insertAdjacentHTML('beforeend', itemHTML);
+                });
+
+                cartSubtotal.textContent = formatPrice(totalPrice);
+                cartBadgeCount.textContent = totalQty;
+                
+                // Gắn sự kiện cho các nút + / - / Xóa
+                attachCartEvents();
+            }
+
+            // Lưu và Cập nhật lại
+            function updateCartStorage() {
+                sessionStorage.setItem('dsa_cart', JSON.stringify(cart));
+                renderCart();
+            }
+
+            function attachCartEvents() {
+                // Tăng số lượng
+                document.querySelectorAll('.qty-btn.plus').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = e.target.getAttribute('data-index');
+                        cart[index].qty += 1;
+                        updateCartStorage();
+                    });
+                });
+                
+                // Giảm số lượng
+                document.querySelectorAll('.qty-btn.minus').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = e.target.getAttribute('data-index');
+                        if (cart[index].qty > 1) {
+                            cart[index].qty -= 1;
+                            updateCartStorage();
+                        }
+                    });
+                });
+
+                // Xóa sản phẩm (Sẽ tự động trả về mốc 0 nếu hết hàng)
+                document.querySelectorAll('.remove-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const btnEl = e.target.closest('.remove-btn');
+                        const index = btnEl.getAttribute('data-index');
+                        cart.splice(index, 1);
+                        updateCartStorage();
+                    });
+                });
+            }
+
+            // Đóng/Mở Drawer Giỏ hàng
+            function openCartDrawer() { cartOverlay.classList.add('active'); cartDrawer.classList.add('active'); }
+            function closeCartDrawer() { cartOverlay.classList.remove('active'); cartDrawer.classList.remove('active'); }
+
+            openCartHeaderBtn.addEventListener('click', (e) => { e.preventDefault(); openCartDrawer(); });
+            closeCartBtn.addEventListener('click', closeCartDrawer);
+            cartOverlay.addEventListener('click', closeCartDrawer);
+
+            // Xử lý khi nhấn THÊM VÀO GIỎ HÀNG
+            addToCartBtn.addEventListener('click', () => {
+                if (!selectedSize) {
+                    // Nếu chưa chọn size -> Kích hoạt hiệu ứng chớp hồng
+                    sizeWrapper.classList.remove('error-flash'); 
+                    void sizeWrapper.offsetWidth; // Reset animation
+                    sizeWrapper.classList.add('error-flash');
+                    return; // Chặn không cho thêm vào giỏ
+                }
+
+                // Kiểm tra xem sản phẩm cùng Size đã có trong giỏ chưa
+                const existingItemIndex = cart.findIndex(item => item.size === selectedSize);
+                
+                if (existingItemIndex > -1) {
+                    cart[existingItemIndex].qty += 1;
+                } else {
+                    cart.push({
+                        id: 'HDZ001',
+                        name: 'THE HOODIE ZIP',
+                        price: 315000,
+                        size: selectedSize,
+                        qty: 1,
+                        img: 'HDZ001.jpg'
+                    });
+                }
+                
+                updateCartStorage();
+                openCartDrawer(); // Mở trượt giỏ hàng ra báo thành công
             });
 
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-            });
-
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-            });
-
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 1.5; // Tốc độ lướt (nhân 1.5 để kéo nhanh hơn)
-                slider.scrollLeft = scrollLeft - walk;
-            });
+            // Gọi render lần đầu khi web vừa tải xong
+            renderCart();
         });
     </script>
 
