@@ -4,17 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA | STREETWEAR BRAND</title>
-
-    <!-- Thêm Icon logo cho tab trình duyệt máy tính và điện thoại -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="apple-touch-icon" href="favicon.png">
-
-    <!-- Thêm Ảnh, Tiêu đề và Mô tả hiển thị khi Share link -->
-    <meta property="og:title" content="DSA | STREETWEAR BRAND">
-    <meta property="og:description" content="Thương hiệu thời trang Streetwear DSA">
-    <meta property="og:image" content="favicon.png">
-
     <style>
+        /* Chỉ giữ lại Font Inter với các độ dày mỏng/vừa (Light/Regular) */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
         * {
@@ -25,7 +16,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #001D51; /* Màu Pantone Imperial Blue */
+            background-color: #8B8B8B;
             color: #fff;
             overflow-x: hidden;
             text-transform: uppercase;
@@ -40,7 +31,7 @@
             list-style: none;
         }
 
-        /* --- HEADER --- */
+      /* --- HEADER --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -64,6 +55,15 @@
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
+            
+            /* Tăng độ đục từ 0.45 lên 0.55 */
+            background: rgba(255, 255, 255, 0.55); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Viền sáng hơn */
+            color: #fff; /* Chuyển màu chữ mặc định sang trắng */
+            transition: all 0.3s ease;
+        }
 
         .nav-left, .nav-center, .nav-right {
             display: flex;
@@ -80,6 +80,7 @@
             height: 30px;
             width: auto;
             display: block;
+            /* Giữ logo gốc (không dùng invert để nó có thể là màu trắng/sáng) */
         }
 
         /* --- GIỎ HÀNG BÊN PHẢI --- */
@@ -94,7 +95,7 @@
         .cart-icon {
             width: 24px;
             height: 24px;
-            fill: #fff;
+            fill: #fff; /* Đổi icon giỏ hàng sang màu trắng */
         }
 
         .cart-badge {
@@ -104,7 +105,7 @@
             background: #e60000;
             color: #fff;
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 600; /* Dùng font mỏng hơn */
             width: 16px;
             height: 16px;
             border-radius: 50%;
@@ -114,6 +115,7 @@
         }
 
         /* --- MENU ĐIỀU HƯỚNG TRƯỢT TỪ TRÁI (OFF-CANVAS) --- */
+        
         .hamburger-icon {
             width: 26px;
             height: 26px;
@@ -127,16 +129,17 @@
         .hamburger-icon svg {
             width: 100%;
             height: 100%;
-            stroke: #fff;
+            stroke: #fff; /* Đổi icon 3 sọc sang màu trắng */
         }
 
+        /* Nền phủ toàn màn hình (Overlay) */
         .menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.6); /* Nền overlay tối hơn một chút */
             z-index: 999;
             opacity: 0;
             visibility: hidden;
@@ -148,7 +151,7 @@
             visibility: visible;
         }
 
-        /* Khung Menu trượt */
+     /* Khung Menu trượt */
         .slide-menu-container {
             position: fixed;
             top: 0;
@@ -165,10 +168,28 @@
             overflow: hidden; 
         }
 
+        /*menu trượt ra */
         .slide-menu-container.active {
             transform: translateX(0); 
         }
 
+        /* Nút Đóng (X) chung cho các menu */
+            
+            /* Gradient với độ đục tăng lên 0.55 ở viền trái */
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow: hidden; 
+        }
+
+        .slide-menu-container.active {
+            transform: translateX(0); 
+        }
+
+        /* Nút Đóng (X) chung cho các menu */
         .close-menu-btn {
             position: absolute;
             top: 20px;
@@ -185,42 +206,48 @@
         .close-menu-btn svg {
             width: 24px;
             height: 24px;
-            stroke: #fff;
+            stroke: #fff; /* Nút X màu trắng */
             stroke-width: 1;
         }
 
+        /* Khung chứa các lớp Menu (Để tạo hiệu ứng trượt trái phải cho chữ) */
         .menu-slider {
             display: flex;
-            width: 200%;
+            width: 200%; /* Chứa 2 bảng menu: Main và Sub */
             height: 100%;
             padding-top: 80px; 
             transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
+        /* Điều khiển trượt sang Menu Phụ (Shop) */
         .slide-menu-container.show-sub .menu-slider {
             transform: translateX(-50%);
         }
 
-        .menu-panel {
-            width: 50%;
-            height: 100%;
-            padding: 0 30px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            overflow-y: auto; 
-            -ms-overflow-style: none; 
-            scrollbar-width: none; 
-        }
+        /* Cấu trúc từng bảng Menu (Panel) */
+       .menu-panel {
+    width: 50%;
+    height: 100%;
+    padding: 0 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    overflow-y: auto; 
+    /* 2 dòng này Ẩn thanh cuộn trên IE, Edge và Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
 
-        .menu-panel::-webkit-scrollbar {
-            display: none;
-        }
+/* Thêm đoạn này ngay dưới .menu-panel để Ẩn thanh cuộn trên Chrome, Safari */
+.menu-panel::-webkit-scrollbar {
+    display: none;
+}
 
+        /* Styling các thẻ liên kết trong Menu - CHỮ MÀU TRẮNG & MỎNG */
         .menu-panel a {
             font-size: 15px;
-            font-weight: 300;
-            color: #fff;
+            font-weight: 300; /* Chữ mỏng (thin) */
+            color: #fff; /* Chữ màu trắng */
             letter-spacing: 1px;
             display: flex;
             justify-content: space-between;
@@ -230,27 +257,29 @@
         }
 
         .menu-panel a:hover {
-            color: #ddd;
+            color: #ddd; /* Hover màu xám nhạt */
             font-weight: 400;
         }
 
+        /* Mũi tên chỉ sang phải */
         .menu-panel a svg {
             width: 18px;
             height: 18px;
-            stroke: #fff;
-            stroke-width: 1;
+            stroke: #fff; /* Mũi tên màu trắng */
+            stroke-width: 1; /* Nét mỏng */
         }
 
+        /* Khung tiêu đề Menu Phụ (Quay lại) */
         .sub-menu-header {
             display: flex;
             align-items: center;
             font-size: 18px;
-            font-weight: 300;
-            color: #fff;
+            font-weight: 300; /* Chữ mỏng */
+            color: #fff; /* Chữ màu trắng */
             text-transform: none; 
             margin-bottom: 20px;
             cursor: pointer;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.05); /* Nền nút mờ nhạt */
             padding: 15px;
             border-radius: 8px;
             margin-top: -10px;
@@ -264,24 +293,26 @@
         .sub-menu-header svg {
             width: 20px;
             height: 20px;
-            stroke: #fff;
-            stroke-width: 1;
+            stroke: #fff; /* Icon quay lại màu trắng */
+            stroke-width: 1; /* Nét mỏng */
             margin-right: 15px;
         }
 
+        /* Căn chỉnh đường gạch ngang ở cuối menu Shop */
         .menu-divider {
             width: 60%;
             height: 1px;
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255,255,255,0.2); /* Đường gạch màu trắng mờ */
             margin-top: 30px;
         }
 
         /* --- VIDEO LỚN --- */
+      /* --- VIDEO LỚN (Đã sửa lỗi tự động ôm sát khung) --- */
         .video-container {
             position: relative;
             width: 100%;
-            height: auto;
-            background-color: #001D51;
+            height: auto; /* Tự động co giãn chiều cao theo đúng tỷ lệ video thực tế */
+            background-color: #8B8B8B;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -289,17 +320,17 @@
             overflow: hidden;
         }
         
+        /* Cấu hình để video hiển thị trọn vẹn, không bị zoom hay méo */
         .video-container video {
             width: 100%;
             height: auto;
-            object-fit: contain;
+            object-fit: contain; /* Lệnh quan trọng: Ép video giữ nguyên 100% khung hình */
             display: block;
         }
-
         /* --- LƯỚI SẢN PHẨM --- */
         .product-section {
             padding: 60px 30px;
-            background: #001D51;
+            background: #8B8B8B;
         }
 
         .product-grid {
@@ -310,8 +341,6 @@
 
         .product-card {
             position: relative;
-            display: block;
-            cursor: pointer;
         }
 
         .img-box {
@@ -323,14 +352,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-        }
-
-        .product-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+            color: #555;
+            font-size: 12px;
         }
 
         .badge {
@@ -347,7 +370,7 @@
 
         .product-info h3 {
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 500; /* Font mỏng hơn */
             margin-bottom: 5px;
         }
 
@@ -365,21 +388,21 @@
         }
 
         .size-box {
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid #333;
             padding: 5px 8px;
             font-size: 10px;
-            color: #ccc;
+            color: #888;
         }
 
         /* --- FOOTER --- */
         .site-footer {
-            background-color: #001D51;
+            background-color: #8B8B8B;
             color: #fff;
             padding: 100px 5% 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid #1a1a1a;
         }
 
         .footer-logo {
@@ -406,7 +429,7 @@
         .footer-socials a {
             font-family: 'Inter', sans-serif;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 500; /* Font vừa (không quá đậm) */
             letter-spacing: 2px;
             transition: color 0.3s ease;
         }
@@ -418,7 +441,7 @@
         .footer-copyright {
             font-size: 12px;
             font-weight: 300;
-            color: rgba(255,255,255,0.5);
+            color: #888;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -433,8 +456,10 @@
             
             .header-logo-img { height: 24px; }
             
-            .slide-menu-container { max-width: 100%; }
-
+            /* Đảm bảo menu trượt full màn*/
+            .slide-menu-container {
+                max-width: 100%; 
+            }
             .product-section { padding: 40px 15px; }
             .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .img-box { margin-bottom: 10px; }
@@ -463,8 +488,10 @@
 <body>
 
     <!-- KHU VỰC MENU TRƯỢT (OFF-CANVAS) -->
+    
     <div class="menu-overlay" id="menuOverlay"></div>
 
+    <!-- Khung chứa Menu Trượt với nền Gradient trong suốt -->
     <div class="slide-menu-container" id="slideMenu">
         
         <div class="close-menu-btn" id="closeMenuBtn">
@@ -473,6 +500,7 @@
             </svg>
         </div>
 
+        <!-- Khung Slider chữ trượt qua lại trên nền Gradient tĩnh -->
         <div class="menu-slider">
             
             <!-- PANEL 1: MENU CHÍNH -->
@@ -489,6 +517,7 @@
 
             <!-- PANEL 2: MENU SHOP (SUB-MENU) -->
             <div class="menu-panel" id="shopMenuPanel">
+                <!-- Nút Quay lại -->
                 <div class="sub-menu-header" id="backToMainMenuBtn">
                     <svg viewBox="0 0 24 24" fill="none">
                         <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -498,9 +527,12 @@
                 
                 <a href="#">SHOP ALL</a>
                 <a href="#">JACKETS</a>
-                <a href="#">TOP</a>
-                <a href="#">BOTTOM</a>
+                <a href="#">JEANS</a>
+                <a href="#">JORTS</a>
+                <a href="#">SHIRTS</a>
                 <a href="#">ACCESSORIES</a>
+                <a href="#">GIFTS</a>
+                <a href="#">BOOTS</a>
                 
                 <div class="menu-divider"></div>
             </div>
@@ -511,6 +543,7 @@
 
     <!-- Khu vực Header -->
     <header>
+        
         <div class="nav-left">
             <div class="hamburger-icon" id="openMenuBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -535,37 +568,63 @@
                 <span class="cart-badge">0</span>
             </a>
         </div>
+        
     </header>
-
-    <!-- KHU VỰC VIDEO LỚN -->
-    <div class="video-container">
-        <!-- Đã thiết lập video.mov, tự động phát, vòng lặp và tắt tiếng -->
-        <video src="video.mov" autoplay loop muted playsinline class="hero-video"></video>
-    </div>
-
+   <!-- KHU VỰC VIDEO LỚN -->
+<div class="video-container">
+    <video src="video.mp4" autoplay loop muted playsinline class="hero-video"></video>
+</div>
     <!-- LƯỚI SẢN PHẨM -->
     <section class="product-section">
         <div class="product-grid">
-            
-            <a href="product-detail.html" class="product-card">
+            <div class="product-card">
                 <span class="badge">NEW</span>
-                <div class="img-box">
-                    <img src="anh HDZ001.jpg" alt="The Hoodie Zip" class="product-img">
-                </div>
+                <div class="img-box">[ ẢNH SẢN PHẨM 1 ]</div>
                 <div class="product-info">
-                    <h3>The Hoodie Zip</h3>
-                    <div class="price">315,000 VND</div>
+                    <h3>Acid Wash Hoodie 400gsm</h3>
+                    <div class="price">850,000 VND</div>
                     <div class="sizes">
-                        <span class="size-box">M</span> <span class="size-box">L</span>
+                        <span class="size-box">S</span> <span class="size-box">M</span> <span class="size-box">L</span> <span class="size-box">XL</span>
                     </div>
                 </div>
-            </a>
-            
+            </div>
+            <div class="product-card">
+                <span class="badge">NEW</span>
+                <div class="img-box">[ ẢNH SẢN PHẨM 2 ]</div>
+                <div class="product-info">
+                    <h3>Linen Basic Dress</h3>
+                    <div class="price">550,000 VND</div>
+                    <div class="sizes">
+                        <span class="size-box">XS</span> <span class="size-box">S</span> <span class="size-box">M</span> <span class="size-box">L</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="img-box">[ ẢNH SẢN PHẨM 3 ]</div>
+                <div class="product-info">
+                    <h3>Logo Tote Bag</h3>
+                    <div class="price">250,000 VND</div>
+                    <div class="sizes">
+                        <span class="size-box">ONE SIZE</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="img-box">[ ẢNH SẢN PHẨM 4 ]</div>
+                <div class="product-info">
+                    <h3>Signature Street Tee</h3>
+                    <div class="price">450,000 VND</div>
+                    <div class="sizes">
+                        <span class="size-box">S</span> <span class="size-box">M</span> <span class="size-box">L</span> <span class="size-box">XL</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="site-footer">
+        
         <div class="footer-logo">
             <img src="logo.png" alt="DSA" class="footer-logo-img">
         </div>
@@ -581,10 +640,9 @@
         </div>
     </footer>
 
-    <!-- SCRIPT ĐIỀU KHIỂN -->
+    <!-- SCRIPT ĐIỀU KHIỂN LOGIC MENU TRƯỢT MƯỢT MÀ -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Điều khiển Menu
             const openMenuBtn = document.getElementById('openMenuBtn');
             const closeMenuBtn = document.getElementById('closeMenuBtn');
             const menuOverlay = document.getElementById('menuOverlay');
@@ -619,14 +677,15 @@
             backToMainMenuBtn.addEventListener('click', function() {
                 slideMenu.classList.remove('show-sub');
             });
-
-            // Logic đổi màu Header khi cuộn qua Video
+            // --- Logic đổi màu Header khi cuộn qua Video ---
             const header = document.querySelector('header');
             const videoContainer = document.querySelector('.video-container');
 
             window.addEventListener('scroll', function() {
+                // Lấy chiều cao của video
                 const videoHeight = videoContainer.offsetHeight;
                 
+                // Trừ đi 70px chiều cao của header để khớp vị trí chính xác
                 if (window.scrollY > videoHeight - 70) {
                     header.classList.add('header-scrolled');
                 } else {
