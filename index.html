@@ -70,6 +70,8 @@
             /* 2. Base Blur Effect */
             backdrop-filter: blur(12px); 
             -webkit-backdrop-filter: blur(12px); 
+          -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 100%);
+    mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 100%);
             
             /* 3. The Crucial Mask: 
                This dictates exactly where the blur is allowed to render. 
