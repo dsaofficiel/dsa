@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +13,17 @@
         body { font-family: 'Inter', sans-serif; background-color: #FEFEFE; color: #000; line-height: 1.5; }
         a { text-decoration: none; color: inherit; }
 
-        /* HEADER ĐƠN GIẢN CHO TRANG CHECKOUT */
+        /* HEADER */
         header { display: flex; justify-content: center; align-items: center; padding: 25px 0; border-bottom: 1px solid #eee; }
         .header-logo-img { height: 35px; width: auto; filter: invert(1); }
-        .back-to-cart { position: absolute; left: 40px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
-        .back-to-cart svg { width: 16px; height: 16px; stroke: #000; stroke-width: 1.5; }
+        .back-to-cart { position: absolute; left: 40px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; transition: color 0.3s; }
+        .back-to-cart:hover { color: #555; }
+        .back-to-cart svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.5; transition: stroke 0.3s; }
 
         /* LAYOUT CHECKOUT */
         .checkout-container { display: flex; max-width: 1200px; margin: 0 auto; min-height: calc(100vh - 86px); }
         
-        /* CỘT TRÁI: FORM ĐIỀN THÔNG TIN */
+        /* CỘT TRÁI: FORM THÔNG TIN */
         .checkout-left { flex: 5.5; padding: 50px 40px 50px 20px; border-right: 1px solid #eee; }
         .section-title { font-size: 18px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; }
         
@@ -56,9 +57,9 @@
         .summary-lines { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 20px 0; margin: 20px 0; }
         .summary-line { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 15px; color: #444; }
         .summary-line:last-child { margin-bottom: 0; }
-        .summary-total { display: flex; justify-content: space-between; align-items: center; font-size: 20px; font-weight: 600; text-transform: uppercase; }
+        .summary-total { display: flex; justify-content: space-between; align-items: center; font-size: 20px; font-weight: 600; text-transform: uppercase; color: #000; }
         
-        /* LOADER KHI ĐANG ĐẶT HÀNG */
+        /* MÀN HÌNH CHỜ (LOADING OVERLAY) */
         .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; }
         .loading-overlay.active { opacity: 1; visibility: visible; }
         .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #000; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 15px; }
@@ -68,7 +69,7 @@
             .checkout-container { flex-direction: column; }
             .checkout-left { order: 2; padding: 40px 20px; border-right: none; }
             .checkout-right { order: 1; padding: 40px 20px; border-bottom: 1px solid #eee; }
-            .back-to-cart { left: 20px; font-size: 0; } /* Ẩn chữ, giữ lại icon */
+            .back-to-cart { left: 20px; font-size: 0; } /* Ẩn chữ, giữ lại icon mũi tên */
         }
     </style>
 </head>
@@ -77,75 +78,137 @@
     <header>
         <a href="index.html" class="back-to-cart">
             <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            QUAY LẠI
+            BACK TO CART
         </a>
         <a href="index.html"><img src="logo.png" alt="DSA" class="header-logo-img"></a>
     </header>
 
     <div class="checkout-container">
         
-        <!-- CỘT TRÁI: THÔNG TIN GIAO HÀNG -->
+        <!-- CỘT TRÁI: FORM -->
         <div class="checkout-left">
-            <h2 class="section-title">THÔNG TIN GIAO HÀNG</h2>
+            <h2 class="section-title">SHIPPING INFORMATION</h2>
             <form id="checkoutForm">
                 <div class="form-group">
-                    <label class="form-label">Họ và Tên</label>
-                    <input type="text" class="form-control" id="customerName" required placeholder="Nhập họ tên của bạn">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="customerName" required placeholder="Enter your full name">
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Số điện thoại</label>
-                    <input type="tel" class="form-control" id="customerPhone" required placeholder="Nhập số điện thoại">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="customerPhone" required placeholder="Enter your phone number">
                 </div>
 
                 <div class="shipping-note">
-                    Lưu ý: Vui lòng chọn đúng Tỉnh/Thành phố. Phí giao hàng sẽ được tự động áp dụng dựa trên khu vực của bạn.
+                    Note: Please select the correct Province/City. Shipping fees will be applied automatically based on your location.
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Tỉnh / Thành Phố</label>
-                    <select class="form-control" id="provinceSelect" required>
-                        <option value="" disabled selected>-- Chọn Tỉnh / Thành phố --</option>
-                        <option value="HCM">TP. Hồ Chí Minh (Nội thành & Ngoại thành)</option>
-                        <option value="OTHER">Các Tỉnh / Thành phố khác (Toàn quốc)</option>
-                    </select>
+                    <label class="form-label">Province / City</label>
+                    <!-- Chuyển thành Datalist để khách gõ nhanh và tự động gợi ý -->
+                    <input list="provinces" class="form-control" id="provinceInput" required placeholder="Type or select your Province/City">
+                    <datalist id="provinces">
+                        <option value="TP. Hồ Chí Minh">
+                        <option value="Hà Nội">
+                        <option value="Đà Nẵng">
+                        <option value="Hải Phòng">
+                        <option value="Cần Thơ">
+                        <option value="An Giang">
+                        <option value="Bà Rịa - Vũng Tàu">
+                        <option value="Bắc Giang">
+                        <option value="Bắc Kạn">
+                        <option value="Bạc Liêu">
+                        <option value="Bắc Ninh">
+                        <option value="Bến Tre">
+                        <option value="Bình Định">
+                        <option value="Bình Dương">
+                        <option value="Bình Phước">
+                        <option value="Bình Thuận">
+                        <option value="Cà Mau">
+                        <option value="Cao Bằng">
+                        <option value="Đắk Lắk">
+                        <option value="Đắk Nông">
+                        <option value="Điện Biên">
+                        <option value="Đồng Nai">
+                        <option value="Đồng Tháp">
+                        <option value="Gia Lai">
+                        <option value="Hà Giang">
+                        <option value="Hà Nam">
+                        <option value="Hà Tĩnh">
+                        <option value="Hải Dương">
+                        <option value="Hậu Giang">
+                        <option value="Hòa Bình">
+                        <option value="Hưng Yên">
+                        <option value="Khánh Hòa">
+                        <option value="Kiên Giang">
+                        <option value="Kon Tum">
+                        <option value="Lai Châu">
+                        <option value="Lâm Đồng">
+                        <option value="Lạng Sơn">
+                        <option value="Lào Cai">
+                        <option value="Long An">
+                        <option value="Nam Định">
+                        <option value="Nghệ An">
+                        <option value="Ninh Bình">
+                        <option value="Ninh Thuận">
+                        <option value="Phú Thọ">
+                        <option value="Phú Yên">
+                        <option value="Quảng Bình">
+                        <option value="Quảng Nam">
+                        <option value="Quảng Ngãi">
+                        <option value="Quảng Ninh">
+                        <option value="Quảng Trị">
+                        <option value="Sóc Trăng">
+                        <option value="Sơn La">
+                        <option value="Tây Ninh">
+                        <option value="Thái Bình">
+                        <option value="Thái Nguyên">
+                        <option value="Thanh Hóa">
+                        <option value="Thừa Thiên Huế">
+                        <option value="Tiền Giang">
+                        <option value="Trà Vinh">
+                        <option value="Tuyên Quang">
+                        <option value="Vĩnh Long">
+                        <option value="Vĩnh Phúc">
+                        <option value="Yên Bái">
+                    </datalist>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Địa chỉ chi tiết</label>
-                    <input type="text" class="form-control" id="customerAddress" required placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện">
+                    <label class="form-label">Detailed Address</label>
+                    <input type="text" class="form-control" id="customerAddress" required placeholder="House number, Street, Ward, District">
                 </div>
 
-                <h2 class="section-title" style="margin-top: 40px;">PHƯƠNG THỨC THANH TOÁN</h2>
+                <h2 class="section-title" style="margin-top: 40px;">PAYMENT METHOD</h2>
                 <div class="payment-method">
                     <input type="radio" checked readonly>
-                    <span>Thanh toán khi nhận hàng (COD)</span>
+                    <span>Cash on Delivery (COD)</span>
                 </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">HOÀN TẤT ĐẶT HÀNG</button>
+                <button type="submit" class="submit-btn" id="submitBtn">COMPLETE ORDER</button>
             </form>
         </div>
 
-        <!-- CỘT PHẢI: TÓM TẮT ĐƠN HÀNG -->
+        <!-- CỘT PHẢI: ORDER SUMMARY -->
         <div class="checkout-right">
             <div class="order-summary">
                 <div id="summaryItemsContainer">
-                    <!-- Javascript đổ item vào đây -->
+                    <!-- Dữ liệu Giỏ hàng sẽ được JS đổ vào đây -->
                 </div>
                 
                 <div class="summary-lines">
                     <div class="summary-line">
-                        <span>Tạm tính</span>
+                        <span>Subtotal</span>
                         <span id="summarySubtotal">0 VND</span>
                     </div>
                     <div class="summary-line">
-                        <span>Phí vận chuyển</span>
-                        <span id="summaryShipping">Chưa tính</span>
+                        <span>Shipping</span>
+                        <span id="summaryShipping">Calculated next step</span>
                     </div>
                 </div>
 
                 <div class="summary-total">
-                    <span>TỔNG CỘNG</span>
+                    <span>TOTAL</span>
                     <span id="summaryTotal">0 VND</span>
                 </div>
             </div>
@@ -153,23 +216,25 @@
 
     </div>
 
-    <!-- Màn hình chờ khi đang đẩy data -->
+    <!-- OVERLAY LOADING KHI BẤM NÚT SUBMIT -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
-        <p style="font-weight: 500; font-size: 14px; letter-spacing: 1px;">ĐANG XỬ LÝ ĐƠN HÀNG...</p>
+        <p style="font-weight: 500; font-size: 14px; letter-spacing: 1px;">PROCESSING YOUR ORDER...</p>
     </div>
 
+    <!-- JAVASCRIPT XỬ LÝ LOGIC -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // === 1. KIỂM TRA GIỎ HÀNG ===
+            // === 1. LẤY DỮ LIỆU TỪ GIỎ HÀNG (LOCAL STORAGE) VÀ HIỂN THỊ ===
             let cart = JSON.parse(localStorage.getItem('dsa_cart')) || [];
+            
+            // Khóa bảo vệ: Nếu vô tình mở trang checkout mà chưa có hàng, đá về trang chủ
             if (cart.length === 0) {
-                alert("Giỏ hàng của bạn đang trống! Đang chuyển về trang chủ.");
+                alert("Your cart is currently empty. Redirecting to home page.");
                 window.location.href = "index.html";
                 return;
             }
 
-            // === 2. HIỂN THỊ SẢN PHẨM Ở CỘT PHẢI ===
             const summaryContainer = document.getElementById('summaryItemsContainer');
             const summarySubtotal = document.getElementById('summarySubtotal');
             const summaryShipping = document.getElementById('summaryShipping');
@@ -180,9 +245,9 @@
 
             const formatPrice = (price) => new Intl.NumberFormat('vi-VN').format(price) + ' VND';
 
-            // Xây dựng chuỗi text để lưu vào Google Sheets
             let orderProductsText = ""; 
 
+            // Vòng lặp render sản phẩm ra màn hình
             cart.forEach(item => {
                 subtotal += (item.price * item.qty);
                 orderProductsText += `- ${item.name} (Size: ${item.size}) x${item.qty}\n`;
@@ -204,75 +269,78 @@
             });
 
             summarySubtotal.textContent = formatPrice(subtotal);
-            summaryTotal.textContent = formatPrice(subtotal); // Mới vào chưa có phí ship
+            summaryTotal.textContent = formatPrice(subtotal); // Hiển thị tạm khi chưa tính phí ship
 
-            // === 3. LOGIC TÍNH PHÍ SHIP (16.5k & 24k) ===
-            const provinceSelect = document.getElementById('provinceSelect');
-            provinceSelect.addEventListener('change', function() {
-                if (this.value === 'HCM') {
-                    shippingFee = 16500;
-                } else if (this.value === 'OTHER') {
-                    shippingFee = 24000;
-                } else {
+            // === 2. LOGIC TÍNH PHÍ SHIP TỰ ĐỘNG THEO TEXT ĐÃ NHẬP ===
+            const provinceInput = document.getElementById('provinceInput');
+            
+            provinceInput.addEventListener('input', function() {
+                const val = this.value.trim().toLowerCase();
+                
+                if (val === "") {
                     shippingFee = 0;
+                    summaryShipping.textContent = "Calculated next step";
+                } else if (val.includes("hồ chí minh") || val.includes("hcm") || val.includes("ho chi minh")) {
+                    shippingFee = 16500;
+                    summaryShipping.textContent = formatPrice(shippingFee);
+                } else {
+                    // Bất kỳ chữ nào gõ vào mà không phải HCM thì mặc định 24k
+                    shippingFee = 24000;
+                    summaryShipping.textContent = formatPrice(shippingFee);
                 }
-
-                summaryShipping.textContent = formatPrice(shippingFee);
+                
+                // Cập nhật lại số Tổng cuối cùng
                 summaryTotal.textContent = formatPrice(subtotal + shippingFee);
             });
 
-            // === 4. XỬ LÝ GỬI FORM VỀ GOOGLE SHEETS ===
+            // === 3. XỬ LÝ GỬI FORM VỀ GOOGLE SHEETS ===
             const checkoutForm = document.getElementById('checkoutForm');
             const submitBtn = document.getElementById('submitBtn');
             const loadingOverlay = document.getElementById('loadingOverlay');
 
-            // ⚠️ ĐIỀN LINK GOOGLE APPS SCRIPT CỦA BẠN VÀO ĐÂY SAU KHI LÀM BƯỚC 2 ⚠️
+            // ⚠️ LINK APP SCRIPT Ở BƯỚC 3 ⚠️
             const SCRIPT_URL = 'ĐIỀN_LINK_APP_SCRIPT_VÀO_ĐÂY'; 
 
             checkoutForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 if (shippingFee === 0) {
-                    alert("Vui lòng chọn Tỉnh/Thành phố giao hàng!");
+                    alert("Please select or enter your Province/City to calculate shipping fee.");
+                    provinceInput.focus();
                     return;
                 }
 
-                if (SCRIPT_URL === https://script.google.com/macros/s/AKfycbzMIzpRPhbj5n23O01mcj_BZhpy3fgtJTwKyd0RmgnDnmhpd0vM50iUK1BZZaKhzmsV/exec)
+                if (SCRIPT_URL === 'ĐIỀN_LINK_APP_SCRIPT_VÀO_ĐÂY') {
+                    alert("System error: Google Sheets endpoint is missing.");
                     return;
                 }
 
                 submitBtn.disabled = true;
                 loadingOverlay.classList.add('active');
 
-                // Lấy thông tin form
+                // Đóng gói data gửi đi
                 const formData = new FormData();
                 formData.append('name', document.getElementById('customerName').value);
                 formData.append('phone', document.getElementById('customerPhone').value);
-                
-                const rawProvince = document.getElementById('provinceSelect');
-                const provinceText = rawProvince.options[rawProvince.selectedIndex].text;
-                formData.append('province', provinceText);
-                
+                formData.append('province', provinceInput.value);
                 formData.append('address', document.getElementById('customerAddress').value);
                 formData.append('products', orderProductsText);
                 formData.append('subtotal', formatPrice(subtotal));
                 formData.append('shipping', formatPrice(shippingFee));
                 formData.append('total', formatPrice(subtotal + shippingFee));
 
-                // Bắn Data
+                // Bắn Data tới Sheets
                 fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
                 .then(() => {
-                    // Dọn dẹp giỏ hàng
-                    localStorage.removeItem('dsa_cart');
-                    
+                    localStorage.removeItem('dsa_cart'); // Xóa giỏ hàng khi thành công
                     loadingOverlay.classList.remove('active');
-                    alert("🎉 CHÚC MỪNG BẠN ĐÃ ĐẶT HÀNG THÀNH CÔNG!\nChúng tôi sẽ sớm liên hệ để giao hàng.");
-                    window.location.href = "index.html";
+                    alert("🎉 ORDER PLACED SUCCESSFULLY!\nWe will contact you shortly to confirm your order.");
+                    window.location.href = "index.html"; // Trả về trang chủ
                 })
                 .catch(error => {
                     loadingOverlay.classList.remove('active');
                     submitBtn.disabled = false;
-                    alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                    alert("An error occurred. Please try again later!");
                     console.error('Error!', error.message);
                 });
             });
